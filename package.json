@@ -1,0 +1,30 @@
+{
+  "name": "react-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iiison/react-form.git"
+  },
+  "keywords": [],
+  "author": "bharat soni <i.bharat.soni@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iiison/react-form/issues"
+  },
+  "peerDependencies" : {
+    "react" : "^15.0.0 || ^16.0.0"
+  },
+  "dependencies" : {},
+  "keywords" : [
+    "react",
+    "form",
+    "react-form",
+    "forms"
+  ],
+  "homepage": "https://github.com/iiison/react-form#readme"
+}
