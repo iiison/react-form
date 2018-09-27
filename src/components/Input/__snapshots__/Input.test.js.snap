@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with default props 1`] = `
+<div>
+  <div
+    className="undefined input-cont"
+  >
+    <input
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with predefined values 1`] = `
+<div>
+  <div
+    className="undefined input-cont"
+  >
+    <input
+      onChange={[Function]}
+      type="text"
+      value="test"
+    />
+  </div>
+</div>
+`;

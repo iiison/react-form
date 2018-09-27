@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Form Container -- Snapshot Test Matches the snapshot when no elements passed to the Form 1`] = `
+<form
+  action=""
+>
+  <div />
+</form>
+`;
+
+exports[`>>> Form Container -- Snapshot Test Matches the snapshot when some data is passed to the Form 1`] = `
+<form
+  action=""
+>
+  <div>
+    <input
+      type="text"
+    />
+  </div>
+</form>
+`;
