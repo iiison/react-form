@@ -1,5 +1,5 @@
-import FormContainer from './FormContainer'
-import Input from './components/Input/Input'
+import FormContainer from './src/FormContainer'
+import Input from './src/components/Input/Input'
 
 const Form = FormContainer
 
