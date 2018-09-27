@@ -1,4 +1,7 @@
-import FormContainer as Form from './src/FormContainer/FormContainer'
+import FormContainer from './FormContainer'
+export Input from './components/Input/Input'
 
-export default Form
+const Form = FormContainer
+
+export default Form 
 
