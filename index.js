@@ -1,7 +1,10 @@
 import FormContainer from './FormContainer'
-export Input from './components/Input/Input'
+import Input from './components/Input/Input'
 
 const Form = FormContainer
 
 export default Form 
+export {
+  Input
+}
 
