@@ -16,7 +16,7 @@ export default class Input extends Component {
         inputClass = '',
         errorClass = '',
         labelClass = ''
-      } = {}
+      }
     } = this.props
     const {
       setFieldValue,
@@ -83,6 +83,7 @@ export default class Input extends Component {
 
   static defaultProps = {
     type          : 'text',
+    classes       : {},
     validate      : null,
     value         : '',
     onFieldChange : null
