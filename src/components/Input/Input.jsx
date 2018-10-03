@@ -16,7 +16,7 @@ export default class Input extends Component {
         inputClass = '',
         errorClass = '',
         labelClass = ''
-      }
+      } = {}
     } = this.props
     const {
       setFieldValue,
