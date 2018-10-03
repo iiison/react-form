@@ -6,9 +6,17 @@ export default class Input extends Component {
     const {
       id,
       type,
+      error,
       value,
+      label,
+      placeholder,
       onFieldChange,
-      class : inputClass
+      classes :  {
+        contClass = '',
+        inputClass = '',
+        errorClass = '',
+        labelClass = ''
+      }
     } = this.props
     const {
       setFieldValue,
@@ -17,10 +25,17 @@ export default class Input extends Component {
     const field = formData.fields ? formData.fields[id] : {}
 
     return (
-      <div className={`${inputClass} input-cont`}>
+      <div className={`${contClass} input-cont col-12 grid`}>
+        {
+          label
+            ? <div className={`col-12 ${labelClass} label`}>{label}</div>
+            : ''
+        }
         <input
           type={type}
+          placeholder={placeholder}
           value={field.value || value}
+          className={`${inputClass} col-12`}
           onChange={(evt) => {
             const event = { ...evt }
 
@@ -35,6 +50,11 @@ export default class Input extends Component {
             }
           }}
         />
+        {
+          error
+            ? <div className={`col-12 error ${errorClass}`}>{error}</div>
+            : ''
+        }
       </div>
     )
   }
@@ -54,7 +74,10 @@ export default class Input extends Component {
     type          : PropTypes.string,
     error         : PropTypes.string,
     value         : PropTypes.string,
+    label         : PropTypes.string,
+    classes       : PropTypes.object,
     validate      : PropTypes.string,
+    placeholder   : PropTypes.string,
     onFieldChange : PropTypes.func
   }
 
