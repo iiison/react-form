@@ -1,6 +1,7 @@
-
 import React, { Component } from 'react'
 import PropTypes            from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+
+import validations          from './utils/validationRules'
 
 /**
  * Main Component, a HOC, will store all fields' state.
@@ -11,12 +12,12 @@ export default class FormContainer extends Component {
 
     const {
       isDisabled = false,
-      shouldValidateForm = false
+      shouldValidateForm
     } = this.props
 
     const defaultState = {
       isDisabled         : false,
-      shouldValidateForm : false
+      shouldValidateForm : true
     }
 
     this.state = {
@@ -28,7 +29,7 @@ export default class FormContainer extends Component {
 
   getChildContext() {
     return {
-      setFieldValue : ({ event, field, value, isMultipleValues }) => {
+      setFieldValue : ({ event, field, value, isMultipleValues, id = 'value' }) => {
         const fieldName = field.id
         const setState = (name, fieldValue) => {
           this.setState((prevState) => ({
@@ -37,7 +38,8 @@ export default class FormContainer extends Component {
               ...prevState.fields,
               [fieldName] : {
                 ...prevState.fields[name],
-                value : fieldValue
+                shouldValidateField : true,
+                [id] : fieldValue
               }
             }
           }))
@@ -49,7 +51,8 @@ export default class FormContainer extends Component {
           const stateCopy = { ...this.state }
 
           for (const item in value) {
-            stateCopy.fields[item].value = value[item]
+            stateCopy.fields[item].shouldValidateField = true
+            stateCopy.fields[item][id] = value[item]
           }
 
           this.setState((prevState) => ({
@@ -68,24 +71,30 @@ export default class FormContainer extends Component {
           ...prevState,
           fields : {
             ...prevState.fields,
-            [data.id] : data 
+            [data.id] : {
+              ...data,
+              shouldValidateField : false
+            }
           }
         }))
       },
 
       validateForm : (fieldName) => {
         const { shouldValidateForm, fields } = this.state
+        const field = fields[fieldName]
 
         if (shouldValidateForm) {
-          if (fieldName) {
-            FormContainer.validateField(fields[fieldName])
+          if (field && field.shouldValidateField) {
+            this.validateField(field)
 
             return
           }
 
           for (const field in fields) {
-            if (field.validate) {
-              this.validateField(fields[field])
+            const fieldData = fields[field]
+
+            if (fieldData) {
+              this.validateField(fieldData)
             }
           }
         }
@@ -109,16 +118,56 @@ export default class FormContainer extends Component {
     )
   }
 
-  static validateField = (fieldData) => {
-    const rules = fieldData.validate.split('|')
+  validateField = (fieldData) => {
+    const {
+      id,
+      label,
+      value,
+      validate,
+      displayName,
+      customRules = {}
+    } = fieldData
+    const rules = validate.split('|')
 
-    console.log(fieldData)
+    if (rules.length) {
+      for (const rule in rules) {
+        const ruleName = rules[rule]
+        const ruleDetails = ruleName.split('-')
+        const [ ruleValue, ...ruleArgs ] = ruleDetails
+        const validation = validations[ruleValue] || customRules[ruleValue]
+
+        if (validation) {
+          const result = validation.rule.apply(null, ruleArgs).test(value)
+          let error = ''
+
+          if (!result) {
+            error = validation.formatter.apply(null, [ displayName || id, ...ruleArgs])
+          }
+
+          this.setState((prevState) => ({
+            ...prevState,
+            errors : {
+              ...prevState.errors,
+              [id] : error
+            }
+          }))
+
+          if (error) {
+            break
+          }
+        } else {
+          throw `invalid validation rule: ${ruleValue}, please use an existing validation rule name or pass a custom function with same name through 'customRules' prop in Input: ${fieldData.id}. Rule value should be an object with keys: 'rule' as an Regex and 'formatter' as a function, that formats the value.`
+        }
+      }
+    }
+
+    return ''
   }
 
   static defaultProps = {
     children           : <div />,
     isDisabled         : false,
-    shouldValidateForm : false
+    shouldValidateForm : true
   }
 
   static propTypes = {
