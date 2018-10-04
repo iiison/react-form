@@ -12,12 +12,13 @@ export default class FormContainer extends Component {
 
     const {
       isDisabled = false,
-      shouldValidateForm
+      shouldValidateForm,
     } = this.props
 
     const defaultState = {
       isDisabled         : false,
-      shouldValidateForm : true
+      shouldValidateForm : true,
+      errors             : {}
     }
 
     this.state = {
