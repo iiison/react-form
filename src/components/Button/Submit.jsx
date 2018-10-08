@@ -14,6 +14,7 @@ export default class Submit extends Component {
     return (
       <div className={`col-12 grid input-cont`}>
         <input
+          className={`${classes} submit`}
           {...restEvents}
           type="submit"
           value={displayName} 
