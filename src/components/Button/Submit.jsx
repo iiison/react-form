@@ -20,9 +20,9 @@ export default class Submit extends Component {
     }
 
     return (
-      <div className={`col-12 grid input-cont`}>
+      <div className={`col-12 grid input-cont ${shouldUseDefalutClasses && contClass}`}>
         <input
-          className={`${classes} submit ${shouldUseDefalutClasses && contClass} ${isFetching && loadingClass}`}
+          className={`${classes} submit ${isFetching && loadingClass}`}
           {...restEvents}
           type="submit"
           value={`${isFetching ? loadingText || 'loading...' : displayName}`} 
