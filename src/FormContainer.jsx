@@ -131,7 +131,7 @@ export default class FormContainer extends Component {
       displayName,
       customRules = {}
     } = fieldData
-    const rules = validate.split('|')
+    const rules = validate ? validate.split('|') : ''
 
     if (rules.length) {
       for (const rule in rules) {
