@@ -15,6 +15,9 @@ export default class Submit extends Component {
     const { onClick, ...restEvents } = events
     const { defaultClasses, isFetching, errors } = formData
     const { contClass } = defaultClasses
+    const finishRequest = () => {
+      setFormData({ isFetching : false })
+    }
 
     return (
       <div className={`col-12 grid input-cont`}>
@@ -33,7 +36,7 @@ export default class Submit extends Component {
                 setFormData({ isFetching : true })
                 onClick({
                   formData,
-                  setFormData
+                  finishRequest
                 })
               }
             }
