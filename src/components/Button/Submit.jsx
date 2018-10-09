@@ -57,7 +57,10 @@ export default class Submit extends Component {
 
   static defaultProps = {
     events                  : {},
-    classes                 : {},
+    classes                 : {
+      buttonClass : '',
+      contClass   : ''
+    },
     loadingClass            : '',
     shouldUseDefalutClasses : true
   }
