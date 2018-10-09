@@ -28,7 +28,7 @@ const defaultInputArgs = {
   value         : '',
   id            : 'email',
   type          : 'text',
-  validate      : null,
+  validate      : '',
   onFieldChange : null
 }
 

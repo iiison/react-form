@@ -138,7 +138,7 @@ export default class Input extends Component {
     value                   : '',
     events                  : {},
     classes                 : {},
-    validate                : null,
+    validate                : '',
     displayName             : '',
     onFieldChange           : null,
     shouldValidateField     : false,
