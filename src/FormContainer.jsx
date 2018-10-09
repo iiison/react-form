@@ -20,6 +20,7 @@ export default class FormContainer extends Component {
       shouldValidateForm,
       defaultClasses,
       isDisabled,
+      errors     : {},
       isFetching : false
     }
   }
