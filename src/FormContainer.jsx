@@ -13,18 +13,14 @@ export default class FormContainer extends Component {
     const {
       isDisabled = false,
       shouldValidateForm,
+      defaultClasses
     } = this.props
 
-    const defaultState = {
-      isDisabled         : false,
-      shouldValidateForm : true,
-      errors             : {}
-    }
-
     this.state = {
-      ...defaultState,
       shouldValidateForm,
-      isDisabled
+      defaultClasses,
+      isDisabled,
+      isFetching : false
     }
   }
 
@@ -77,6 +73,13 @@ export default class FormContainer extends Component {
               shouldValidateField : false
             }
           }
+        }))
+      },
+
+      setFormData : (data) => {
+        this.setState((prevState) => ({
+          ...prevState,
+          ...data
         }))
       },
 
@@ -166,22 +169,31 @@ export default class FormContainer extends Component {
   }
 
   static defaultProps = {
+    errors             : {},
     children           : <div />,
     isDisabled         : false,
-    shouldValidateForm : true
+    shouldValidateForm : true,
+    defaultClasses     : {
+      contClass  : '',
+      inputClass : '',
+      errorClass : '',
+      labelClass : ''
+    }
   }
 
   static propTypes = {
     children           : PropTypes.node.isRequired,
     isDisabled         : PropTypes.bool,
-    shouldValidateForm : PropTypes.bool
+    shouldValidateForm : PropTypes.bool,
+    defaultClasses     : PropTypes.object
   }
 
   static childContextTypes = {
     addField      : PropTypes.func,
     setFieldValue : PropTypes.func,
     validateForm  : PropTypes.func,
-    formData      : PropTypes.object
+    formData      : PropTypes.object,
+    setFormData   : PropTypes.func
   }
 }
 

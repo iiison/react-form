@@ -6,26 +6,36 @@ export default class Submit extends Component {
     const {
       displayName,
       events,
-      classes
+      classes,
+      loadingClass,
+      loadingText,
+      shouldUseDefalutClasses
     } = this.props
-    const { validateForm, formData = {} } = this.context
+    const { validateForm, formData = {}, setFormData } = this.context
     const { onClick, ...restEvents } = events
+    const { defaultClasses, isFetching, errors } = formData
+    const { contClass } = defaultClasses
 
     return (
       <div className={`col-12 grid input-cont`}>
         <input
-          className={`${classes} submit`}
+          className={`${classes} submit ${shouldUseDefalutClasses && contClass} ${isFetching && loadingClass}`}
           {...restEvents}
           type="submit"
-          value={displayName} 
+          value={`${isFetching ? loadingText || 'loading...' : displayName}`} 
           onClick={(event) => {
             event.preventDefault()
-            validateForm()
 
-            if (formData.errors && Object.values(formData.errors).join('').length === 0) {
-              onClick({
-                formData
-              })
+            if (!isFetching) {
+              validateForm()
+
+              if (errors && Object.values(errors).join('').length === 0) {
+                setFormData({ isFetching : true })
+                onClick({
+                  formData,
+                  setFormData
+                })
+              }
             }
           }}
         />
@@ -34,18 +44,24 @@ export default class Submit extends Component {
   }
 
   static propTypes = {
-    displayName : PropTypes.string.isRequired,
-    events : PropTypes.object,
-    classes : PropTypes.string
+    displayName             : PropTypes.string.isRequired,
+    events                  : PropTypes.object,
+    classes                 : PropTypes.string,
+    loadingClass            : PropTypes.string,
+    shouldUseDefalutClasses : PropTypes.bool
   }
 
   static defaultProps = {
-    events : {},
-    classes : ''
+    events                  : {},
+    classes                 : '',
+    loadingClass            : '',
+    shouldUseDefalutClasses : true
   }
 
   static contextTypes = {
     formData     : PropTypes.object.isRequired,
-    validateForm : PropTypes.func.isRequired
+    validateForm : PropTypes.func.isRequired,
+    setFormData  : PropTypes.func.isRequired
   }
 }
+

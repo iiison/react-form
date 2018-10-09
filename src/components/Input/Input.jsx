@@ -13,6 +13,7 @@ export default class Input extends Component {
       placeholder,
       onFieldChange,
       shouldValidateField,
+      shouldUseDefalutClasses,
       classes :  {
         contClass = '',
         inputClass = '',
@@ -25,14 +26,26 @@ export default class Input extends Component {
       validateForm,
       formData = {}
     } = this.context
-    const field = formData.fields ? formData.fields[id] : {}
-    const errors = formData.errors && formData.errors[id]
+    const {
+      fields, 
+      defaultClasses,
+      errors : allErrors
+    } = formData
+    const {
+      contClass  : defaultContClass,
+      inputClass : defaultInputClass,
+      errorClass : defaultErrorClass,
+      labelClass : defaultLabelClass
+    } = defaultClasses
+    const field = fields ? fields[id] : {}
+    const errors = allErrors && allErrors[id]
+    const updatedContClass = ``
     const props = {
       ...events,
       type,
       placeholder,
       value     : field.value || value,
-      className : `${inputClass} col-12`,
+      className : `${inputClass} ${shouldUseDefalutClasses && defaultInputClass} col-12`,
       onBlur    : (evt) => {
         const event = { ...evt }
 
@@ -80,16 +93,16 @@ export default class Input extends Component {
       : <input {...props} />
 
     return (
-      <div className={`${contClass} input-cont col-12 grid`}>
+      <div className={`${contClass}  ${shouldUseDefalutClasses && defaultContClass} input-cont col-12 grid`}>
         {
           label
-            ? <div className={`col-12 ${labelClass} label`}>{label}</div>
+            ? <div className={`col-12 ${labelClass} ${shouldUseDefalutClasses && defaultLabelClass} label`}>{label}</div>
             : ''
         }
         { element }
         {
           errors
-            ? <div className={`col-12 error ${errorClass}`}>{errors}</div>
+            ? <div className={`col-12 error ${errorClass} ${shouldUseDefalutClasses && defaultErrorClass}`}>{errors}</div>
             : ''
         }
       </div>
@@ -108,26 +121,28 @@ export default class Input extends Component {
   }
 
   static propTypes = {
-    id            : PropTypes.string.isRequired,
-    type          : PropTypes.string,
-    value         : PropTypes.string,
-    label         : PropTypes.string,
-    classes       : PropTypes.object,
-    validate      : PropTypes.string,
-    placeholder   : PropTypes.string,
-    displayName   : PropTypes.string,
-    onFieldChange : PropTypes.func
+    id                      : PropTypes.string.isRequired,
+    type                    : PropTypes.string,
+    value                   : PropTypes.string,
+    label                   : PropTypes.string,
+    classes                 : PropTypes.object,
+    validate                : PropTypes.string,
+    placeholder             : PropTypes.string,
+    displayName             : PropTypes.string,
+    onFieldChange           : PropTypes.func,
+    shouldUseDefalutClasses : PropTypes.bool
   }
 
   static defaultProps = {
-    type                : 'text',
-    value               : '',
-    events              : {},
-    classes             : {},
-    validate            : null,
-    displayName         : '',
-    onFieldChange       : null,
-    shouldValidateField : false,
+    type                    : 'text',
+    value                   : '',
+    events                  : {},
+    classes                 : {},
+    validate                : null,
+    displayName             : '',
+    onFieldChange           : null,
+    shouldValidateField     : false,
+    shouldUseDefalutClasses : true
   }
 }
 
