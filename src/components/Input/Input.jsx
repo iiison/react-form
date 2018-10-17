@@ -7,16 +7,15 @@ export default class Input extends Component {
       id,
       type,
       rows,
-      value,
       label,
       events,
       placeholder,
       onFieldChange,
       shouldValidateField,
-      shouldUseDefalutClasses,
+      shouldUseDefaultClasses,
       classes :  {
         contClass = '',
-        inputClass = '',
+        fieldClass = '',
         errorClass = '',
         labelClass = ''
       }
@@ -33,7 +32,7 @@ export default class Input extends Component {
     } = formData
     const {
       contClass  : defaultContClass,
-      inputClass : defaultInputClass,
+      fieldClass : defaultInputClass,
       errorClass : defaultErrorClass,
       labelClass : defaultLabelClass
     } = defaultClasses
@@ -44,8 +43,8 @@ export default class Input extends Component {
       ...events,
       type,
       placeholder,
-      value     : field.value || value,
-      className : `${inputClass} ${shouldUseDefalutClasses && defaultInputClass} col-12`,
+      value     : field.value || '',
+      className : `${fieldClass} ${shouldUseDefaultClasses && defaultInputClass} col-12`,
       onBlur    : (evt) => {
         const event = { ...evt }
 
@@ -84,7 +83,7 @@ export default class Input extends Component {
       delete props.type
       delete props.value
 
-      props.defaultValue = field.value || value
+      props.defaultValue = field.value || ''
       props.rows = rows || 2
     }
 
@@ -93,16 +92,16 @@ export default class Input extends Component {
       : <input {...props} />
 
     return (
-      <div className={`${contClass}  ${shouldUseDefalutClasses && defaultContClass} input-cont col-12 grid`}>
+      <div className={`${contClass}  ${shouldUseDefaultClasses && defaultContClass} input-cont col-12 grid`}>
         {
           label
-            ? <div className={`col-12 ${labelClass} ${shouldUseDefalutClasses && defaultLabelClass} label`}>{label}</div>
+            ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
             : ''
         }
         { element }
         {
           errors
-            ? <div className={`col-12 error ${errorClass} ${shouldUseDefalutClasses && defaultErrorClass}`}>{errors}</div>
+            ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
             : ''
         }
       </div>
@@ -130,7 +129,7 @@ export default class Input extends Component {
     placeholder             : PropTypes.string,
     displayName             : PropTypes.string,
     onFieldChange           : PropTypes.func,
-    shouldUseDefalutClasses : PropTypes.bool
+    shouldUseDefaultClasses : PropTypes.bool
   }
 
   static defaultProps = {
@@ -142,7 +141,7 @@ export default class Input extends Component {
     displayName             : '',
     onFieldChange           : null,
     shouldValidateField     : false,
-    shouldUseDefalutClasses : true
+    shouldUseDefaultClasses : true
   }
 }
 

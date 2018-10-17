@@ -43,7 +43,7 @@ export default class FormContainer extends Component {
           }))
         }
 
-        if (!value) {
+        if (!value && value !== '') {
           setState(fieldName, event.currentTarget.value)
         } else if (isMultipleValues) {
           const stateCopy = { ...this.state }
@@ -67,11 +67,15 @@ export default class FormContainer extends Component {
       addField : (data) => {
         this.setState((prevState) => ({
           ...prevState,
+          errors : {
+            ...prevState.errors,
+            [data.id] : ''
+          },
           fields : {
             ...prevState.fields,
             [data.id] : {
               ...data,
-              shouldValidateField : false
+              // shouldValidateField : false // Not sure why this was added
             }
           }
         }))
@@ -89,8 +93,10 @@ export default class FormContainer extends Component {
         const field = fields[fieldName]
 
         if (shouldValidateForm) {
-          if (field && field.shouldValidateField) {
-            this.validateField(field)
+          if (field) {
+            if ( field.shouldValidateField ) {
+              this.validateField(field)
+            }
 
             return
           }
@@ -176,7 +182,7 @@ export default class FormContainer extends Component {
     shouldValidateForm : true,
     defaultClasses     : {
       contClass  : '',
-      inputClass : '',
+      fieldClass : '',
       errorClass : '',
       labelClass : ''
     }

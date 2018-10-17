@@ -42,12 +42,12 @@ Refer docs in component for prop details of respective component
 
 #### Form Props
 ###### defaultClasses[Object]
-Suppose you want class `input-container` on all the Inputs, there are two ways to do that, one is to pass the class name as props to each input(which will be very repeative), other way is to define `inputClass` property in `defaultClasses` prop in Form. In this way the default class will be added to each Input, you can opt not to add default class in each component, please refer components doc for more details.
+Suppose you want class `input-container` on all the Inputs, there are two ways to do that, one is to pass the class name as props to each input(which will be very repeative), other way is to define `fieldClass` property in `defaultClasses` prop in Form. In this way the default class will be added to each Input, you can opt not to add default class in each component, please refer components doc for more details.
 
 ```js
 const defaultClasses = {
   contClass  : 'input-container', // Container class, will be added to each container.
-  inputClass : 'input-field', // will be added to actual field.
+  fieldClass : 'input-field', // will be added to actual field.
   errorClass : 'error', // will be added to errors.
   label      : 'input-label' // will be added to all labels.
 }

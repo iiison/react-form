@@ -9,7 +9,7 @@ export default class Submit extends Component {
       classes,
       loadingClass,
       loadingText,
-      shouldUseDefalutClasses
+      shouldUseDefaultClasses
     } = this.props
     const { validateForm, formData = {}, setFormData } = this.context
     const { onClick, ...restEvents } = events
@@ -21,7 +21,7 @@ export default class Submit extends Component {
     }
 
     return (
-      <div className={`col-12 grid input-cont ${shouldUseDefalutClasses && defaultContClass} ${contClass}`}>
+      <div className={`col-12 grid input-cont ${shouldUseDefaultClasses && defaultContClass} ${contClass}`}>
         <input
           className={`${buttonClass} submit ${isFetching && loadingClass}`}
           {...restEvents}
@@ -52,7 +52,7 @@ export default class Submit extends Component {
     events                  : PropTypes.object,
     classes                 : PropTypes.object,
     loadingClass            : PropTypes.string,
-    shouldUseDefalutClasses : PropTypes.bool
+    shouldUseDefaultClasses : PropTypes.bool
   }
 
   static defaultProps = {
@@ -62,7 +62,7 @@ export default class Submit extends Component {
       contClass   : ''
     },
     loadingClass            : '',
-    shouldUseDefalutClasses : true
+    shouldUseDefaultClasses : true
   }
 
   static contextTypes = {
