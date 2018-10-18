@@ -54,9 +54,7 @@ export default class Select extends Component {
       event : {},
       field,
       value : options[option] || ''
-    })
-
-    validateForm(id)
+    }, () => { validateForm(id) })
 
     if (events && events.onChange && !formData.errors[id].length) {
       events.onChange({

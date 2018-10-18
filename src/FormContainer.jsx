@@ -27,7 +27,7 @@ export default class FormContainer extends Component {
 
   getChildContext() {
     return {
-      setFieldValue : ({ event, field, value, isMultipleValues, id = 'value' }) => {
+      setFieldValue : ({ event, field, value, isMultipleValues, id = 'value' }, callBack) => {
         const fieldName = field.id
         const setState = (name, fieldValue) => {
           this.setState((prevState) => ({
@@ -40,7 +40,7 @@ export default class FormContainer extends Component {
                 [id] : fieldValue
               }
             }
-          }))
+          }), callBack)
         }
 
         if (!value && value !== '') {
