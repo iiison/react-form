@@ -68,6 +68,8 @@ export default class Select extends Component {
 
   render() {
     const {
+      id,
+      label,
       classes,
       shouldUseDefaultClasses
     } = this.props
@@ -89,13 +91,24 @@ export default class Select extends Component {
       errorClass : defaultErrorClass,
       labelClass : defaultLabelClass
     } = defaultClasses
+    const errors = allErrors[id]
 
     return (
-      <div className={`select-box ${contClass} ${shouldUseDefaultClasses && defaultContClass} grid`}>
+      <div className={`select-box ${contClass} ${shouldUseDefaultClasses && defaultContClass} grid col-12 input-cont`}>
+        {
+          label
+            ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
+            : ''
+        }
         {this.drawSelectedValue()}
         <div className='grid options'>
           {this.drawOptions({ optionClass })}
         </div>
+        {
+          errors
+            ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
+            : ''
+        }
       </div>
     )
   }
