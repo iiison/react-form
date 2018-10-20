@@ -28,22 +28,21 @@ export default class Checkbox extends Component {
     const field = fields[fieldID]
     const renderedOptions = options.map((option) => {
       const { id, value, displayName } = option
-      const checkedProp = field.value.indexOf(value) !== -1 ? { checked : true } : {}
 
       return (
-        <div>
+        <div key={id}>
           <input
-            type='checkbox'
-            value={value}
             id={id}
+            value={value}
             name={fieldID} 
+            type='checkbox'
+            defaultChecked={field.value.indexOf(value) !== -1}
             onChange={(evt) => {
               const event = { ...evt }
 
               evt.persist()
               this.handleSelectBoxChange({ event })
             }}
-            {...checkedProp}
           />
           <label htmlFor={id}>{displayName}</label>
         </div>
