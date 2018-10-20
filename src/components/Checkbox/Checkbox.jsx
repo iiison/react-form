@@ -5,7 +5,7 @@ import * as styles from './styles.css'
 export default class Checkbox extends Component {
   handleSelectBoxChange = ({ event }) => {
     const { options, id, events } = this.props
-    const { formData : { fields }, setFieldValue, validateForm } = this.context
+    const { formData : { fields, errors }, setFieldValue, validateForm } = this.context
     const field = fields[id]
     const fieldValue = event.currentTarget.value
     const isChecked = event.currentTarget.checked
@@ -19,7 +19,18 @@ export default class Checkbox extends Component {
       return previousValueCopy
     })()
 
-    setFieldValue({ event, field, value }, () => { validateForm(id) })
+    setFieldValue({ event, field, value }, () => {
+      validateForm(id)
+      
+      if (field.events.onChange && typeof field.events.onChange === 'function') {
+        const { formData } = this.context
+
+        field.events.onChange({
+          formData,
+          setFieldValue
+        })
+      }
+    })
   }
 
   drawOptions({ optionClass, optionContClass, optionLabelClass }) {
