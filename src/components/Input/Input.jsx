@@ -121,7 +121,6 @@ export default class Input extends Component {
 
   static propTypes = {
     id                      : PropTypes.string.isRequired,
-    type                    : PropTypes.string,
     value                   : PropTypes.string,
     label                   : PropTypes.string,
     classes                 : PropTypes.object,
@@ -129,7 +128,8 @@ export default class Input extends Component {
     placeholder             : PropTypes.string,
     displayName             : PropTypes.string,
     onFieldChange           : PropTypes.func,
-    shouldUseDefaultClasses : PropTypes.bool
+    shouldUseDefaultClasses : PropTypes.bool,
+    type                    : PropTypes.oneOf(['email', 'text', 'number', 'tel', 'password', 'textarea'])
   }
 
   static defaultProps = {
