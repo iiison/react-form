@@ -148,7 +148,7 @@ export default class FormContainer extends Component {
         const validation = validations[ruleValue] || customRules[ruleValue]
 
         if (validation) {
-          const result = validation.rule.apply(null, ruleArgs).test(value)
+          const result = validation.rule.apply(null, ruleArgs).test(value.toString())
           let error = ''
 
           if (!result) {

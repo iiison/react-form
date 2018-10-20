@@ -5,7 +5,7 @@ import * as styles from './styles.css'
 export default class Checkbox extends Component {
   handleSelectBoxChange = ({ event }) => {
     const { options, id, events } = this.props
-    const { formData : { fields }, setFieldValue } = this.context
+    const { formData : { fields }, setFieldValue, validateForm } = this.context
     const field = fields[id]
     const fieldValue = event.currentTarget.value
     const isChecked = event.currentTarget.checked
@@ -19,10 +19,10 @@ export default class Checkbox extends Component {
       return previousValueCopy
     })()
 
-    setFieldValue({ event, field, value })
+    setFieldValue({ event, field, value }, () => { validateForm(id) })
   }
 
-  drawOptions({ optionClass }) {
+  drawOptions({ optionClass, optionContClass, optionLabelClass }) {
     const { options, id : fieldID } = this.props
     const { formData : { fields } } = this.context
     const field = fields[fieldID]
@@ -63,7 +63,9 @@ export default class Checkbox extends Component {
       contClass,
       labelClass,
       errorClass,
-      optionClass
+      optionClass,
+      optionContClass,
+      optionLabelClass
     } = classes
     const {
       formData = {}
@@ -80,8 +82,18 @@ export default class Checkbox extends Component {
     const errors = allErrors[id]
 
     return (
-      <div className='input-cont'>
-      {(formData.fields && formData.fields[id]) ? this.drawOptions({ optionClass }) : ''}
+      <div className={`input-cont ${shouldUseDefaultClasses && defaultContClass} ${contClass}`}>
+        {
+          label
+            ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
+            : ''
+        }
+        {(formData.fields && formData.fields[id]) ? this.drawOptions({ optionClass, optionContClass, optionLabelClass }) : ''}
+        {
+          errors
+            ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
+            : ''
+        }
       </div>
     )
   }
