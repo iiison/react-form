@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
-import * as styles from './styles.css'
 
 export default class Options extends Component {
   getChecboxNewValue = ({ event, field, isChecked }) => {
