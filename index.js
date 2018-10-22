@@ -11,6 +11,6 @@ export {
   Input,
   Select,
   Submit,
-  Options
+  Option
 }
 

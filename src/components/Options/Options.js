@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
 
-export default class Options extends Component {
+export default class Option extends Component {
   getChecboxNewValue = ({ event, field, isChecked }) => {
     const previousValue = field.value || []
     const fieldValue = event.currentTarget.value
