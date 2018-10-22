@@ -1,20 +1,34 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
 
+function getField({ props, context }) {
+  const { id } = props
+  const { formData : { fields } } = context
+
+  return fields[id]
+}
+
 export default class Select extends Component {
   drawSelectedValue = () => {
-    const { placeholder, options, value, id } = this.props
-    const { formData : { fields } } = this.context
-    const content = (fields && fields[id].value) ? fields[id].value : placeholder
+    const field = getField({
+      props   : this.props,
+      context : this.context
+    })
+    const { placeholder, options, value, classes : { displayValueClass } } = field
+    const content = value ? value : placeholder
 
-    return <div className={`col-12 field-value`}>{content}</div>
+    return <div className={`col-12 field-value ${displayValueClass} select-value`}>{content}</div>
   }
 
   drawOptions = ({ optionClass }) => {
-    const { options, value, placeholder, classes } = this.props
-    const renderedOptions = []
-
-    renderedOptions.push(
+    const { id } = this.props
+    const { fields } = this.context
+    const field = getField({
+      props   : this.props,
+      context : this.context
+    })
+    const { options, value, placeholder, classes } = field
+    const defaultOption = (
       <div
         key='default'
         role='button'
@@ -23,36 +37,38 @@ export default class Select extends Component {
       >{placeholder}</div>
     )
 
-    for (const option in options) {
-      const optionValue = options[option]
-      const renderedOption = (
+    const renderedOptions = options.map((option) => {
+      const { id, displayName, isDisabled = false, value : optionValue } = option
+
+      return (
         <div
-          key={option}
+          key={id}
           role='button'
-          onClick={() => { this.updateSelect({ option }) }}
-          className={`${optionClass} option ${value === optionValue && classes.selectedOptionClass}`}
-        >{optionValue}</div>
-      ) 
+          onClick={() => { this.updateSelect(option) }}
+          className={`${optionClass} option ${value === optionValue && classes.selectedOptionClass} ${isDisabled ? 'disabled-option' : ''}`}
+        >{displayName}</div>
+      )
+    })
 
-      renderedOptions.push(renderedOption)
-    }
-
-    return renderedOptions
+    return [defaultOption, ...renderedOptions]
   }
 
-  updateSelect({ option } = { option : '' }) {
-    const { id, options, events } = this.props
+  updateSelect({ value } = { value : '' }) {
+    const field = getField({
+      props   : this.props,
+      context : this.context
+    })
+    const { id, options, events } = field
     const {
       setFieldValue,
       validateForm,
       formData = {}
     } = this.context
-    const field = formData.fields[id]
 
     setFieldValue({
-      event : {},
       field,
-      value : options[option] || ''
+      event : {},
+      value,
     }, () => { validateForm(id) })
 
     if (events && events.onChange && !formData.errors[id].length) {
@@ -65,49 +81,60 @@ export default class Select extends Component {
 
   render() {
     const {
-      id,
-      label,
-      classes,
-      shouldUseDefaultClasses
-    } = this.props
-    const {
-      contClass,
-      labelClass,
-      errorClass,
-      optionClass
-    } = classes
-    const {
       formData = {}
     } = this.context
     const {
+      fields,
       defaultClasses,
       errors : allErrors
     } = formData
-    const {
-      contClass  : defaultContClass,
-      errorClass : defaultErrorClass,
-      labelClass : defaultLabelClass
-    } = defaultClasses
-    const errors = allErrors[id]
+    const { id } = this.props
 
-    return (
-      <div className={`select-box ${contClass} ${shouldUseDefaultClasses && defaultContClass} grid col-12 input-cont`}>
-        {
-          label
-            ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
-            : ''
-        }
-        {this.drawSelectedValue()}
-        <div className='grid options'>
-          {this.drawOptions({ optionClass })}
+    if ( fields && fields[id] ) {
+      const field = fields[id]
+
+      const {
+        label,
+        classes,
+        shouldUseDefaultClasses
+      } = field
+      const {
+        contClass,
+        labelClass,
+        errorClass,
+        optionsContClass,
+        optionClass
+      } = classes
+      const {
+        contClass  : defaultContClass,
+        errorClass : defaultErrorClass,
+        labelClass : defaultLabelClass
+      } = defaultClasses
+      const errors = allErrors[id]
+
+      return (
+        <div className={`select-box ${contClass} ${shouldUseDefaultClasses && defaultContClass} grid col-12 input-cont`}>
+          {
+            label
+              ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
+              : ''
+          }
+          <div className={`select`}>
+            {this.drawSelectedValue()}
+            <div className={`grid options ${optionsContClass}`}>
+              {this.drawOptions({ optionClass })}
+            </div>
+          </div>
+          {
+            errors
+              ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
+              : ''
+          }
         </div>
-        {
-          errors
-            ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
-            : ''
-        }
-      </div>
-    )
+      )
+    }
+
+    return (<div/>)
   }
 
   componentDidMount() {
@@ -143,7 +170,7 @@ export default class Select extends Component {
     shouldUseDefaultClasses : PropTypes.bool,
     placeholder             : PropTypes.string,
     displayName             : PropTypes.string.isRequired,
-    options                 : PropTypes.object.isRequired
+    options                 : PropTypes.array.isRequired
   }
 
   static contextTypes       = {

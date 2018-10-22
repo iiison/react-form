@@ -149,7 +149,7 @@ export default class FormContainer extends Component {
 
         if (validation) {
           const stringifiedValue = value.toString()
-          const result = ( rule !== 'required' && !stringifiedValue )
+          const result = ( ruleValue !== 'required' && !stringifiedValue )
             ? true
             : validation.rule.apply(null, ruleArgs).test(value.toString())
           let error = ''
