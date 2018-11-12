@@ -1,12 +1,12 @@
 {
   "name": "react-state-form",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "",
   "main": "build/react-state-form.js",
   "scripts": {
     "prod": "webpack -p",
     "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline",
-    "prepublish" : "rm -rf ./build && npm run prod"
+    "prepublish": "rm -rf ./build && npm run prod"
   },
   "repository": {
     "type": "git",
