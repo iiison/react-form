@@ -19,7 +19,6 @@ lib-cov
 # coverage
 
 # Compiled binary
-build/*
 
 # Dependency directory
 # Commenting this out is preferred by some people, see
