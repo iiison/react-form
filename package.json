@@ -5,7 +5,8 @@
   "main": "build/react-state-form.js",
   "scripts": {
     "prod": "webpack -p",
-    "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline"
+    "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline",
+    "prepublish" : "rm -rf ./build && npm run prod"
   },
   "repository": {
     "type": "git",

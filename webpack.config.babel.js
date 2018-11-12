@@ -24,6 +24,7 @@ const isLocal        = LAUNCH_COMMAND === 'local'
 const PATHS          = {
   src        : path.join(__dirname, 'src'),
   build      : path.join(__dirname, 'build'),
+  nModules   : path.join(__dirname, 'node_modules'),
   utils      : path.join(__dirname, 'src/utils'),
   config     : path.join(__dirname, 'src/config'),
   components : path.join(__dirname, 'src/components'),
@@ -61,17 +62,18 @@ console.log(chalk.green('-------------------------------------------------------
 const base = {
   entry  : path.join(__dirname, 'index.js'),
   output : {
-    path          : PATHS.build,
-    library       : 'reactStateForm',
-    libraryTarget : 'umd',
-    filename      : 'react-state-form.js'
+    path           : PATHS.build,
+    library        : 'reactStateForm',
+    libraryTarget  : 'umd',
+    umdNamedDefine : true,
+    filename       : 'react-state-form.js'
   },
   externals : {
     react : {
       commonjs  : 'react',
       commonjs2 : 'react',
-      amd       : 'react',
-      root      : 'react'
+      amd       : 'React',
+      root      : 'React'
     }
   },
   module : {
@@ -96,7 +98,8 @@ const base = {
       $BUILD      : PATHS.build,
       $UTILS      : PATHS.utils,
       $CONFIG     : PATHS.config,
-      $COMPONENTS : PATHS.components
+      $COMPONENTS : PATHS.components,
+      react       : path.join(PATHS.nModules, 'react')
     },
     enforceExtension : false,
     extensions       : ['.js', '.jsx'],
