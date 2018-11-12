@@ -1,0 +1,40 @@
+{
+  'presets' : [
+    '@babel/react',
+    [
+      '@babel/preset-env',
+      {
+        'targets' : {
+          'browsers' : ['last 2 versions', '> 5% in SG', 'not ie <= 10']
+        },
+        'debug' : true
+      }
+    ]
+  ],
+  'env': {
+    'test': {
+      'plugins': [
+        'transform-es2015-modules-commonjs',
+        [
+          'module-resolver',
+          {
+            'alias' : {
+              '$CONFIG'     : './app/config',
+              '$REDUX'      : './app/redux',
+              '$APP'        : './app',
+              '$UTILS'      : './app/utils',
+              '$COMPONENTS' : './app/components',
+              '$CONTAINERS' : './app/containers',
+              '$SHAREDCOMP' : './app/components/Shared',
+              '$FORMATTERS' : './app/utils/formatters'
+            },
+            'root': ['./app'],
+          }
+        ]
+      ]
+    }
+  },
+  'plugins': [
+    '@babel/plugin-proposal-class-properties'
+  ]
+}
