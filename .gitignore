@@ -34,16 +34,16 @@ npm-debug.log
 /.idea
 
 
-**/build/*
-**/bundle.js
+# **/build/*
+# **/bundle.js
 **/bundle.js.map
-/bundle.js
+# /bundle.js
 /bundle.js.map
-bundle.js
+# bundle.js
 bundle.js.map
 stats.json
 /stats.json
-bundle*
+# bundle*
 .tern-project
 **/.tern-project
 .tern-port
