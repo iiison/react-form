@@ -1,6 +1,6 @@
 {
   "name": "react-state-form",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "",
   "main": "build/react-state-form.js",
   "scripts": {
