@@ -8,6 +8,12 @@ function getField({ props, context }) {
   return fields[id]
 }
 
+function getOptionValue(options, filterPropName, value) {
+  return options.filter((option) => {
+    return option[filterPropName] === value
+  })[0]
+}
+
 export default class Select extends Component {
   drawSelectedValue = () => {
     const field = getField({
@@ -15,7 +21,7 @@ export default class Select extends Component {
       context : this.context
     })
     const { placeholder, options, value, classes : { displayValueClass } } = field
-    const content = value ? value : placeholder
+    const content = value ? getOptionValue(options, 'value', value).displayName : placeholder
 
     return <div className={`col-12 field-value ${displayValueClass} select-value`}>{content}</div>
   }
