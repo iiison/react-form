@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
 
-import { debounce } from '../../utils/utils'
-import { Input } from './Input'
+import { debounce } from '$UTILS/utils'
+import { Input } from 'react-state-form'
 
 function renderSuggestions ({ Template, state }) {
   const { currentIndex, suggestions, error, showSuggestions } = state
@@ -12,7 +12,7 @@ function renderSuggestions ({ Template, state }) {
   }
 
   if (error || !suggestions.length) {
-    return <div className='suggestions'>{'No matching suggestion.'}</div>
+    return <div className='suggestions col-12 lighter-color'>{'No matching suggestion.'}</div>
   }
 
   return suggestions.map((suggestion, index) => {
@@ -80,7 +80,7 @@ export default class AutoSuggest extends Component {
     }
 
     if (value && value.length > minLength) {
-      const { suggestions, error } = await getSuggestions(value)
+      const { suggestions = [], error } = await getSuggestions(value)
 
       this.setState({
         error,
@@ -97,7 +97,7 @@ export default class AutoSuggest extends Component {
 
   render() {
     const state = this.state
-    const { Template, ...rest } = this.props
+    const { Template, suggestionsClasses, ...rest } = this.props
 
     rest.onFieldChange = this.debouncedHandleChange
     rest.events = {
@@ -105,9 +105,9 @@ export default class AutoSuggest extends Component {
     }
 
     return (
-      <div className='col-12 grid'>
+      <div className={`col-12 grid relative`}>
         <Input {...rest} />
-        <div className='col-12 grid suggestions'>{renderSuggestions({ Template, state })}</div>
+        <div className={`col-12 grid suggestions ${suggestionsClasses.contClass}`}>{renderSuggestions({ Template, state })}</div>
       </div>
     )
   }
@@ -117,8 +117,11 @@ export default class AutoSuggest extends Component {
   }
 
   static defaultProps = {
-    delay     : 500,
-    minLength : 3
+    delay              : 500,
+    minLength          : 3,
+    suggestionsClasses : {
+      contClass : ''
+    }
   }
 
   static contextTypes = {
@@ -127,11 +130,14 @@ export default class AutoSuggest extends Component {
   }
 
   static propTypes = {
-    onFieldChange  : PropTypes.func, // eslint-disable-line react/require-default-props
-    getSuggestions : PropTypes.func.isRequired,
-    Template       : PropTypes.func.isRequired,
-    minLength      : PropTypes.number,
-    delay          : PropTypes.number
+    onFieldChange      : PropTypes.func, // eslint-disable-line react/require-default-props
+    getSuggestions     : PropTypes.func.isRequired,
+    Template           : PropTypes.func.isRequired,
+    minLength          : PropTypes.number,
+    delay              : PropTypes.number,
+    suggestionsClasses : PropTypes.shape({
+      contClass : PropTypes.string
+    })
   }
 }
 
