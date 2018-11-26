@@ -2,7 +2,7 @@
   "name": "react-state-form",
   "version": "1.7.6",
   "description": "",
-  "main": "build/react-state-form.js",
+  "main": "./index.js",
   "scripts": {
     "prod": "webpack -p",
     "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline",
