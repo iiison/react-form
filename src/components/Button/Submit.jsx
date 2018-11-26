@@ -16,8 +16,13 @@ export default class Submit extends Component {
     const { defaultClasses, isFetching, errors } = formData
     const { contClass : defaultContClass } = defaultClasses
     const { buttonClass, contClass } = classes
-    const finishRequest = () => {
-      setFormData({ isFetching : false })
+    const finishRequest = ({ errors }) => {
+      const newState = {
+        errors,
+        isFetching : false
+      }
+
+      setFormData(newState)
     }
 
     return (
