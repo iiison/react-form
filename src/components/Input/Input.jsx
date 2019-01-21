@@ -136,12 +136,17 @@ export default class Input extends Component {
     type                    : 'text',
     value                   : '',
     events                  : {},
-    classes                 : {},
     validate                : '',
     displayName             : '',
     onFieldChange           : null,
     shouldValidateField     : false,
-    shouldUseDefaultClasses : true
+    shouldUseDefaultClasses : true,
+    classes                 : {
+      labelClass : '',
+      contClass  : '',
+      errorClass : '',
+      fieldClass : ''
+    }
   }
 }
 

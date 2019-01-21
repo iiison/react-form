@@ -14,27 +14,30 @@
   'env': {
     'test': {
       'plugins': [
+        '@babel/plugin-proposal-export-default-from',
+        '@babel/plugin-proposal-export-namespace-from',
         'transform-es2015-modules-commonjs',
         [
           'module-resolver',
           {
             'alias' : {
-              '$CONFIG'     : './app/config',
-              '$REDUX'      : './app/redux',
-              '$APP'        : './app',
-              '$UTILS'      : './app/utils',
-              '$COMPONENTS' : './app/components',
-              '$CONTAINERS' : './app/containers',
-              '$SHAREDCOMP' : './app/components/Shared',
-              '$FORMATTERS' : './app/utils/formatters'
+              '$CONFIG'     : './src/config',
+              '$SRC'        : './src',
+              '$UTILS'      : './src/utils',
+              '$COMPONENTS' : './src/components',
+              '$CONTAINERS' : './src/containers',
+              '$SHAREDCOMP' : './src/components/Shared',
+              '$TESTUTILS' : './__test__/utils'
             },
-            'root': ['./app'],
+            'root': ['./src'],
           }
         ]
       ]
     }
   },
   'plugins': [
+    '@babel/plugin-proposal-export-default-from',
+    '@babel/plugin-proposal-export-namespace-from',
     '@babel/plugin-proposal-class-properties'
   ]
 }
