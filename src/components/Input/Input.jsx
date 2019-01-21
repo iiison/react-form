@@ -3,8 +3,31 @@ import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-d
 
 export default class Input extends Component {
   render() {
+    const { id } = this.props
     const {
-      id,
+      setFieldValue,
+      validateForm,
+      formData
+    } = this.context
+    const {
+      fields, 
+      defaultClasses,
+      errors : allErrors
+    } = formData
+
+    if (!fields || !fields[id]) {
+      return (<div />)
+    }
+
+    const {
+      contClass  : defaultContClass,
+      fieldClass : defaultInputClass,
+      errorClass : defaultErrorClass,
+      labelClass : defaultLabelClass
+    } = defaultClasses
+    const field = fields ? fields[id] : {}
+    const {
+      value,
       type,
       rows,
       label,
@@ -14,48 +37,32 @@ export default class Input extends Component {
       shouldValidateField,
       shouldUseDefaultClasses,
       classes :  {
-        contClass = '',
-        fieldClass = '',
-        errorClass = '',
-        labelClass = ''
+        contClass,
+        fieldClass,
+        errorClass,
+        labelClass
       }
-    } = this.props
-    const {
-      setFieldValue,
-      validateForm,
-      formData = {}
-    } = this.context
-    const {
-      fields, 
-      defaultClasses,
-      errors : allErrors
-    } = formData
-    const {
-      contClass  : defaultContClass,
-      fieldClass : defaultInputClass,
-      errorClass : defaultErrorClass,
-      labelClass : defaultLabelClass
-    } = defaultClasses
-    const field = fields ? fields[id] : {}
+    } = field
+
     const errors = allErrors && allErrors[id]
     const updatedContClass = ``
     const props = {
       ...events,
       type,
       placeholder,
-      value     : field.value || '',
+      value,
       className : `${fieldClass} ${shouldUseDefaultClasses && defaultInputClass} col-12`,
       onBlur    : (evt) => {
         const event = { ...evt }
 
         evt.persist()
-        if (field.shouldValidateField) {
-          validateForm(field.id)
+        if (shouldValidateField) {
+          validateForm(id)
         } else {
           setFieldValue({
             event,
             field,
-            value : field.value.toString().length > 0,
+            value : value.toString().length > 0,
             id    : 'shouldValidateField' 
           })
         }
@@ -79,11 +86,11 @@ export default class Input extends Component {
       }
     }
 
-    if (type.toLowerCase() === 'textarea') {
+    if (type === 'textarea') {
       delete props.type
       delete props.value
 
-      props.defaultValue = field.value || ''
+      props.defaultValue = value
       props.rows = rows || 2
     }
 
@@ -98,7 +105,7 @@ export default class Input extends Component {
             ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
             : ''
         }
-        { element }
+        {element}
         {
           errors
             ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
@@ -108,11 +115,10 @@ export default class Input extends Component {
     )
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.context.addField(this.props)
   }
-
-  static contextTypes = {
+static contextTypes = {
     addField      : PropTypes.func.isRequired,
     setFieldValue : PropTypes.func.isRequired,
     validateForm  : PropTypes.func.isRequired,
@@ -123,13 +129,18 @@ export default class Input extends Component {
     id                      : PropTypes.string.isRequired,
     value                   : PropTypes.string,
     label                   : PropTypes.string,
-    classes                 : PropTypes.object,
     validate                : PropTypes.string,
     placeholder             : PropTypes.string,
     displayName             : PropTypes.string,
     onFieldChange           : PropTypes.func,
     shouldUseDefaultClasses : PropTypes.bool,
-    type                    : PropTypes.oneOf(['email', 'text', 'number', 'tel', 'password', 'textarea'])
+    type                    : PropTypes.oneOf(['email', 'text', 'number', 'tel', 'password', 'textarea']),
+    classes                 : PropTypes.shape({
+      labelClass : PropTypes.string,
+      contClass  : PropTypes.string,
+      errorClass : PropTypes.string,
+      fieldClass : PropTypes.string,
+    })
   }
 
   static defaultProps = {

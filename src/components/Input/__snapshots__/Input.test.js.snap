@@ -1,29 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`>>> Input Container -- Snapshot Test Matches the snapshot with default props 1`] = `
-<div>
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot when Textarea is rendered 1`] = `
+<form
+  action=""
+>
   <div
-    className="undefined input-cont"
+    className="cont-class   input-cont col-12 grid"
   >
+    
+    <textarea
+      className="field-class  col-12"
+      defaultValue="big textarea value"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="custom textarea placeholder"
+      rows={5}
+    />
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with custom props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="cont-class   input-cont col-12 grid"
+  >
+    
     <input
+      className="field-class  col-12"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="custom placeholder"
+      type="text"
+      value=""
+    />
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with default props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="   input-cont col-12 grid"
+  >
+    
+    <input
+      className="  col-12"
+      onBlur={[Function]}
       onChange={[Function]}
       type="text"
       value=""
     />
+    
   </div>
-</div>
+</form>
 `;
 
-exports[`>>> Input Container -- Snapshot Test Matches the snapshot with predefined values 1`] = `
-<div>
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with predefined value 1`] = `
+<form
+  action=""
+>
   <div
-    className="undefined input-cont"
+    className="   input-cont col-12 grid"
   >
+    
     <input
+      className="  col-12"
+      onBlur={[Function]}
       onChange={[Function]}
       type="text"
       value="test"
     />
+    
   </div>
-</div>
+</form>
 `;

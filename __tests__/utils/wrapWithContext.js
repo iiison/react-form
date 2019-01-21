@@ -13,10 +13,6 @@ export default function wrapWithContext(context, contextTypes, Elements) {
       ) 
     }
 
-    getChildContext() {
-      return context
-    }
-
     static childContextTypes = contextTypes
   }
 
