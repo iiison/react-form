@@ -28,6 +28,7 @@ const PATHS          = {
   utils      : path.join(__dirname, 'src/utils'),
   config     : path.join(__dirname, 'src/config'),
   components : path.join(__dirname, 'src/components'),
+  testUtils  : path.join(__dirname, '__tests__/utils'),
 }
 
 // Plugins Configuration Starts
@@ -97,6 +98,7 @@ const base = {
       $SRC        : PATHS.src,
       $BUILD      : PATHS.build,
       $UTILS      : PATHS.utils,
+      $TEST_UTILS : PATHS.testUtils,
       $CONFIG     : PATHS.config,
       $COMPONENTS : PATHS.components,
       react       : path.join(PATHS.nModules, 'react')

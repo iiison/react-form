@@ -1,29 +1,154 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`>>> Input Container -- Snapshot Test Matches the snapshot with default props 1`] = `
-<div>
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot when Textarea is rendered 1`] = `
+<form
+  action=""
+>
   <div
-    className="undefined input-cont"
+    className="cont-class   input-cont col-12 grid"
   >
+    
+    <textarea
+      className="field-class  col-12"
+      defaultValue="big textarea value"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="custom textarea placeholder"
+      rows={5}
+    />
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with custom props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="cont-class   input-cont col-12 grid"
+  >
+    
     <input
+      className="field-class  col-12"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="custom placeholder"
+      type="text"
+      value=""
+    />
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with default props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="   input-cont col-12 grid"
+  >
+    
+    <input
+      className="  col-12"
+      onBlur={[Function]}
       onChange={[Function]}
       type="text"
       value=""
     />
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with error in input 1`] = `
+<div>
+  <div
+    className="cont-class  default-contClass input-cont col-12 grid"
+  >
+    
+    <input
+      className="field-class default-fieldClass col-12"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="enter value"
+      type="text"
+      value=""
+    />
+    <div
+      className="col-12 error error-class default-errorClass"
+    >
+      some error
+    </div>
   </div>
 </div>
 `;
 
-exports[`>>> Input Container -- Snapshot Test Matches the snapshot with predefined values 1`] = `
-<div>
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with label in input 1`] = `
+<form
+  action=""
+>
   <div
-    className="undefined input-cont"
+    className="cont-class   input-cont col-12 grid"
   >
+    <div
+      className="col-12 label-class  label"
+    >
+      Input label
+    </div>
     <input
+      className="field-class  col-12"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="custom placeholder"
+      type="text"
+      value=""
+    />
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot with predefined value 1`] = `
+<form
+  action=""
+>
+  <div
+    className="   input-cont col-12 grid"
+  >
+    
+    <input
+      className="  col-12"
+      onBlur={[Function]}
       onChange={[Function]}
       type="text"
       value="test"
     />
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Input Container -- Snapshot Test Matches the snapshot without using default classes provided by form 1`] = `
+<div>
+  <div
+    className="cont-class  false input-cont col-12 grid"
+  >
+    
+    <input
+      className="field-class false col-12"
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder="enter value"
+      type="text"
+      value=""
+    />
+    <div
+      className="col-12 error error-class false"
+    >
+      some error
+    </div>
   </div>
 </div>
 `;

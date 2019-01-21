@@ -6,7 +6,10 @@
   "scripts": {
     "prod": "webpack -p",
     "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline",
-    "prepublish": "rm -rf ./build && npm run prod"
+    "prepublishOnly": "rm -rf ./build && npm run prod",
+    "test": "jest",
+    "test:watch": "jest --watch --verbose false",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand --watch --verbose false"
   },
   "repository": {
     "type": "git",
@@ -28,23 +31,69 @@
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0"
+  },
   "homepage": "https://github.com/iiison/react-form#readme",
   "devDependencies": {
     "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.5",
+    "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.2.0",
     "@babel/preset-env": "^7.1.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.0-beta.6",
     "babel-minify-webpack-plugin": "^0.3.1",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "chalk": "^2.4.1",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-15": "^1.2.0",
+    "enzyme-to-json": "^3.3.5",
+    "eslint-import-resolver-webpack": "^0.10.1",
+    "eslint-plugin-import": "^2.14.0",
+    "install-peers": "^1.0.3",
+    "jest-fetch-mock": "^2.1.0",
     "path": "^0.12.7",
-    "react": "^16.6.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.2",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-load-plugins": "^0.1.2"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/__tests__/setup/setupTests.js",
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__"
+    ],
+    "moduleNameMapper": {
+      "^.*[.](css|CSS)$": "<rootDir>/__tests__/setup/styleMock.js",
+      "$TESTUTILS(.*)$": "<rootDir>/__tests__/utils"
+    },
+    "transform": {
+      "^.+\\.jsx$": "babel-jest",
+      "^.+\\.js$": "babel-jest"
+    },
+    "globals": {
+      "env": {
+        "isProd": false,
+        "isDev": true,
+        "command": "start"
+      }
+    },
+    "moduleFileExtensions": [ "js", "jsx", "json", "css" ],
+    "modulePaths": [
+      "/src"
+    ],
+    "moduleDirectories": [ "src", "node_modules"],
+    "setupFiles": [ "./__tests__/setup/setupJest.js" ],
+    "verbose": true,
+    "automock": false
   }
 }
