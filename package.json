@@ -8,8 +8,8 @@
     "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline",
     "prepublishOnly": "rm -rf ./build && npm run prod",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "test:debug": "node --inspect node_modules/.bin/jest --runInBand --watch"
+    "test:watch": "jest --watch --verbose false",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand --watch --verbose false"
   },
   "repository": {
     "type": "git",
