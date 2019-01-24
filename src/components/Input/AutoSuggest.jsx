@@ -6,6 +6,7 @@ import Input from './Input'
 
 function renderSuggestions ({ Template, state, suggestionsClasses, clickEvent }) {
   const { currentIndex, suggestions, error, showSuggestions } = state
+  const notFoundMessage = 'No matching suggestion.'
   let items
 
   if (!showSuggestions) {
@@ -13,7 +14,7 @@ function renderSuggestions ({ Template, state, suggestionsClasses, clickEvent })
   }
 
   if (error || !suggestions.length) {
-    items = <li className='suggestions col-12 lighter-color'>{'No matching suggestion.'}</li>
+    items = <li className={'suggestions col-12 lighter-color'}>{'No matching suggestion.'}</li>
   }
 
   items = suggestions.map((suggestion, index) => {

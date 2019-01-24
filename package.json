@@ -5,8 +5,9 @@
   "main": "./index.js",
   "scripts": {
     "prod": "webpack -p",
-    "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline",
-    "prepublishOnly": "rm -rf ./build && npm run prod",
+    "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline --mode development",
+    "local": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline --mode development",
+    "prepublishOnly": "rm -rf ./build && npm run prod --mode production",
     "test": "jest",
     "test:watch": "jest --watch --verbose false",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand --watch --verbose false"
@@ -32,6 +33,7 @@
     "react": "^15.0.0 || ^16.0.0"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "babel-jest": "^23.6.0",
     "jest": "^23.6.0"
   },
@@ -46,6 +48,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.0-beta.6",
     "babel-minify-webpack-plugin": "^0.3.1",
     "babel-plugin-module-resolver": "^3.1.1",
@@ -54,13 +57,21 @@
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-15": "^1.2.0",
     "enzyme-to-json": "^3.3.5",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-import-resolver-webpack": "^0.10.1",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.12.4",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^3.2.0",
     "install-peers": "^1.0.3",
     "jest-fetch-mock": "^2.1.0",
     "path": "^0.12.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router-dom": "^4.3.1",
     "react-test-renderer": "^15.6.2",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",
@@ -87,12 +98,22 @@
         "command": "start"
       }
     },
-    "moduleFileExtensions": [ "js", "jsx", "json", "css" ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "css"
+    ],
     "modulePaths": [
       "/src"
     ],
-    "moduleDirectories": [ "src", "node_modules"],
-    "setupFiles": [ "./__tests__/setup/setupJest.js" ],
+    "moduleDirectories": [
+      "src",
+      "node_modules"
+    ],
+    "setupFiles": [
+      "./__tests__/setup/setupJest.js"
+    ],
     "verbose": true,
     "automock": false
   }

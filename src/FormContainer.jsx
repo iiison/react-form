@@ -37,7 +37,7 @@ export default class FormContainer extends Component {
               [fieldName] : {
                 ...prevState.fields[name],
                 shouldValidateField : true,
-                [id] : fieldValue
+                [id]                : fieldValue
               }
             }
           }), callBack)
@@ -101,8 +101,8 @@ export default class FormContainer extends Component {
             return
           }
 
-          for (const field in fields) {
-            const fieldData = fields[field]
+          for (const unit in fields) {
+            const fieldData = fields[unit]
 
             if (fieldData) {
               this.validateField(fieldData)
@@ -122,9 +122,11 @@ export default class FormContainer extends Component {
    * @return {DOM} Main container DOM.
    */
   render() {
+    const { children } = this.props
+
     return (
       <form action=''>
-        {this.props.children}
+        {children}
       </form>
     )
   }
@@ -132,7 +134,6 @@ export default class FormContainer extends Component {
   validateField = (fieldData) => {
     const {
       id,
-      label,
       value,
       validate,
       displayName,
@@ -144,7 +145,7 @@ export default class FormContainer extends Component {
       for (const rule in rules) {
         const ruleName = rules[rule]
         const ruleDetails = ruleName.split('-')
-        const [ ruleValue, ...ruleArgs ] = ruleDetails
+        const [ruleValue, ...ruleArgs] = ruleDetails
         const validation = validations[ruleValue] || customRules[ruleValue]
 
         if (validation) {
@@ -155,7 +156,7 @@ export default class FormContainer extends Component {
           let error = ''
 
           if (!result) {
-            error = validation.formatter.apply(null, [ displayName || id, ...ruleArgs])
+            error = validation.formatter.apply(null, [displayName || id, ...ruleArgs])
           }
 
           this.setState((prevState) => ({
@@ -170,7 +171,7 @@ export default class FormContainer extends Component {
             break
           }
         } else {
-          throw `invalid validation rule: ${ruleValue}, please use an existing validation rule name or pass a custom function with same name through 'customRules' prop in Input: ${fieldData.id}. Rule value should be an object with keys: 'rule' as an Regex and 'formatter' as a function, that formats the value.`
+          throw `invalid validation rule: ${ruleValue}, please use an existing validation rule name or pass a custom function with same name through 'customRules' prop in Input: ${fieldData.id}. Rule value should be an object with keys: 'rule' as an Regex and 'formatter' as a function, that formats the value.` // eslint-disable-line
         }
       }
     }
@@ -179,7 +180,7 @@ export default class FormContainer extends Component {
   }
 
   static defaultProps = {
-    errors             : {},
+    errors             : {}, // eslint-disable-line
     children           : <div />,
     isDisabled         : false,
     shouldValidateForm : true,
@@ -192,17 +193,22 @@ export default class FormContainer extends Component {
   }
 
   static propTypes = {
-    children           : PropTypes.node.isRequired,
+    children           : PropTypes.node,
     isDisabled         : PropTypes.bool,
     shouldValidateForm : PropTypes.bool,
-    defaultClasses     : PropTypes.object
+    defaultClasses     : PropTypes.shape({
+      labelClass : PropTypes.string,
+      contClass  : PropTypes.string,
+      errorClass : PropTypes.string,
+      fieldClass : PropTypes.string,
+    })
   }
 
   static childContextTypes = {
     addField      : PropTypes.func,
     setFieldValue : PropTypes.func,
     validateForm  : PropTypes.func,
-    formData      : PropTypes.object,
+    formData      : PropTypes.object, // eslint-disable-line
     setFormData   : PropTypes.func
   }
 }
