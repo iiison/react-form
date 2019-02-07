@@ -102,13 +102,13 @@ const base = {
   },
   module : {
     rules : [
-      {
-        enforce : 'pre',
-        test    : /\.(js|jsx)$/,
-        use     : 'eslint-loader',
-        include : PATHS.src,
-        exclude : [/bundle\.js|coverage/]
-      },
+      // {
+      //   enforce : 'pre',
+      //   test    : /\.(js|jsx)$/,
+      //   use     : 'eslint-loader',
+      //   include : PATHS.src,
+      //   exclude : [/bundle\.js|coverage/]
+      // },
       {
         test    : /\.(js|jsx)$/,
         exclude : [/node_modules/],
