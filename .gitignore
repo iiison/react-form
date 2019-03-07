@@ -52,3 +52,5 @@ stats.json
 # Test Auto generated files
 **/coverage/*
 coverage/*
+
+package-lock.json
