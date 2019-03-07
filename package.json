@@ -87,12 +87,22 @@
         "command": "start"
       }
     },
-    "moduleFileExtensions": [ "js", "jsx", "json", "css" ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "css"
+    ],
     "modulePaths": [
       "/src"
     ],
-    "moduleDirectories": [ "src", "node_modules"],
-    "setupFiles": [ "./__tests__/setup/setupJest.js" ],
+    "moduleDirectories": [
+      "src",
+      "node_modules"
+    ],
+    "setupFiles": [
+      "./__tests__/setup/setupJest.js"
+    ],
     "verbose": true,
     "automock": false
   }
