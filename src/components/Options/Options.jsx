@@ -124,7 +124,6 @@ export default class Option extends Component {
   }
 
   static defaultProps = {
-    value                   : [],
     label                   : '',
     events                  : {},
     validate                : '',
@@ -142,26 +141,35 @@ export default class Option extends Component {
 
   static propTypes = {
     id                      : PropTypes.string.isRequired,
-    events                  : PropTypes.object,
-    classes                 : PropTypes.object,
     label                   : PropTypes.string,
     validate                : PropTypes.string,
     shouldValidateField     : PropTypes.bool,
     shouldUseDefaultClasses : PropTypes.bool,
     displayName             : PropTypes.string.isRequired,
-    options                 : PropTypes.array.isRequired,
+    options                 : PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
     type                    : PropTypes.oneOf(['checkbox', 'radio']).isRequired,
-    value                   : PropTypes.oneOfType([
+    events                  : PropTypes.shape({
+      onChange : PropTypes.func
+    }),
+    classes : PropTypes.shape({
+      contClass           : PropTypes.string,
+      labelClass          : PropTypes.string,
+      fieldClass          : PropTypes.string,
+      errorClass          : PropTypes.string,
+      optionClass         : PropTypes.string,
+      selectedOptionClass : PropTypes.string
+    }),
+    value : PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.string
     ]).isRequired
   }
 
-  static contextTypes       = {
+  static contextTypes = {
     addField      : PropTypes.func.isRequired,
     setFieldValue : PropTypes.func.isRequired,
     validateForm  : PropTypes.func.isRequired,
-    formData      : PropTypes.object.isRequired
+    formData      : PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
   }
 }
 

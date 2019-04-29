@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import FormContainer from '../FormContainer'
 
 export Submit from './Button/Submit'

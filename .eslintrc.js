@@ -274,13 +274,20 @@ const baseRules = {
   'react/sort-comp': 0,
   'import/prefer-default-export': 0,
   'react/prefer-stateless-function': 0,
-  // 'react/jsx-curly-brace-presence': 0, 
+  'react/jsx-curly-brace-presence': 0, 
+  'react/no-unused-state' : 2,
+  'react/no-unused-prop-types' : 0,
 
   ////////////////////
   // jsx-a11y Rules //
   ////////////////////
   'jsx-a11y/interactive-supports-focus': 0,
-  'jsx-a11y/no-noninteractive-element-interactions': 0
+  'jsx-a11y/no-noninteractive-element-interactions': 0,
+  'jsx-a11y/label-has-for': [2, {
+    'required' : {
+      'every' : ['id']
+    }
+  }]
 };
 
 const PROD = {
@@ -299,6 +306,12 @@ const DEV = {
   'react/prop-types': 0
 };
 
+const TEMP_DISABLED_RULES = {
+  'react/no-unused-state' : 0,
+  'react/destructuring-assignment' : 0,
+  'import/no-extraneous-dependencies' : 0
+}
+
 const environment =
   process.env.isProd == 'true'
     ? '--=--=--=-- Production --=--=--=--'
@@ -306,8 +319,8 @@ const environment =
 
 const rules =
   process.env.isProd == 'true'
-    ? Object.assign({}, baseRules, PROD)
-    : Object.assign({}, baseRules, DEV);
+    ? Object.assign({}, baseRules, PROD, TEMP_DISABLED_RULES)
+    : Object.assign({}, baseRules, DEV, TEMP_DISABLED_RULES);
 
 Base.rules = rules;
 

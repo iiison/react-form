@@ -118,11 +118,12 @@ export default class Input extends Component {
   componentWillMount() {
     this.context.addField(this.props)
   }
-static contextTypes = {
+
+  static contextTypes = {
     addField      : PropTypes.func.isRequired,
     setFieldValue : PropTypes.func.isRequired,
     validateForm  : PropTypes.func.isRequired,
-    formData      : PropTypes.object.isRequired
+    formData      : PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
   }
 
   static propTypes = {
@@ -134,8 +135,12 @@ static contextTypes = {
     displayName             : PropTypes.string,
     onFieldChange           : PropTypes.func,
     shouldUseDefaultClasses : PropTypes.bool,
+    shouldValidateField     : PropTypes.bool,
     type                    : PropTypes.oneOf(['email', 'text', 'number', 'tel', 'password', 'textarea']),
-    classes                 : PropTypes.shape({
+    events                  : PropTypes.shape({
+      onBlur : PropTypes.func.isRequired
+    }),
+    classes : PropTypes.shape({
       labelClass : PropTypes.string,
       contClass  : PropTypes.string,
       errorClass : PropTypes.string,
@@ -146,6 +151,8 @@ static contextTypes = {
   static defaultProps = {
     type                    : 'text',
     value                   : '',
+    label                   : '',
+    placeholder             : '',
     events                  : {},
     validate                : '',
     displayName             : '',
