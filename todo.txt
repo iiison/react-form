@@ -1,0 +1,3 @@
+- Accept custom rules at form level too
+- Create messages list, can be function collection or text json
+

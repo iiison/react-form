@@ -45,8 +45,16 @@ export default class Main extends Component {
         placeholder : 'enter email',
         label       : 'Enter emai',
         displayName : 'email',
-        validate    : 'required|alphaNumeric|minLength-3|maxLength-3'
-        // onInputChange : this.handleEmailChange
+        validate    : 'required|alphaNumeric|minLength-3|maxLength-3',
+        customRules : {
+          lassun : {
+            rule : () => /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+            formatter() {
+              return 'yesh, it worked!'
+            }
+          }
+        },
+        onFieldChange : this.handleEmailChange
       },
       auto : {
         id             : 'userss',
