@@ -10,7 +10,8 @@
     "prepublishOnly": "rm -rf ./build && npm run prod --mode production",
     "test": "jest",
     "test:watch": "jest --watch --verbose false",
-    "test:debug": "node --inspect node_modules/.bin/jest --runInBand --watch --verbose false"
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand --watch --verbose false",
+    "eslint:debug": "node --inspect-brk node_modules/.bin/webpack --runInBand --watch --verbose true --debug-brk"
   },
   "repository": {
     "type": "git",
