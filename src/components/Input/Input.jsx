@@ -138,7 +138,7 @@ export default class Input extends Component {
     shouldValidateField     : PropTypes.bool,
     type                    : PropTypes.oneOf(['email', 'text', 'number', 'tel', 'password', 'textarea']),
     events                  : PropTypes.shape({
-      onBlur : PropTypes.func.isRequired
+      onBlur : PropTypes.func
     }),
     classes : PropTypes.shape({
       labelClass : PropTypes.string,

@@ -131,14 +131,35 @@ export default class FormContainer extends Component {
     )
   }
 
-  validateField = (fieldData) => {
-    const {
-      id,
-      value,
-      validate,
-      displayName,
-      customRules = {}
-    } = fieldData
+  validateRule({ id, value, displayName, ruleValue, ruleArgs, validation }) {
+    if (validation) {
+      const stringifiedValue = value.toString()
+      const isRuleSatisfied = ( ruleValue !== 'required' && !stringifiedValue )
+        ? true
+        : validation.rule.apply(null, ruleArgs).test(value.toString())
+      let error = ''
+
+      if (!isRuleSatisfied) {
+        error = validation.formatter.apply(null, [displayName || id, ...ruleArgs])
+
+        return error
+      }
+    } else {
+      throw `invalid validation rule: ${ruleValue}, please use an existing validation rule name or pass a custom function with same name through 'customRules' prop in Input: ${fieldData.id}. Rule value should be an object with keys: 'rule' as an Regex and 'formatter' as a function, that formats the value.` // eslint-disable-line
+    }
+
+    return ''
+  }
+
+
+  validateField = ({
+    id,
+    value,
+    validate,
+    displayName,
+    customRules = {}
+  }) => {
+    let error = ''
     const rules = validate ? validate.split('|') : ''
 
     if (rules.length) {
@@ -148,35 +169,26 @@ export default class FormContainer extends Component {
         const [ruleValue, ...ruleArgs] = ruleDetails
         const validation = validations[ruleValue] || customRules[ruleValue]
 
-        if (validation) {
-          const stringifiedValue = value.toString()
-          const result = ( ruleValue !== 'required' && !stringifiedValue )
-            ? true
-            : validation.rule.apply(null, ruleArgs).test(value.toString())
-          let error = ''
 
-          if (!result) {
-            error = validation.formatter.apply(null, [displayName || id, ...ruleArgs])
-          }
+        try {
+          error = this.validateRule({ id, value, displayName, ruleValue, ruleArgs, validation })
 
-          this.setState((prevState) => ({
-            ...prevState,
-            errors : {
-              ...prevState.errors,
-              [id] : error
-            }
-          }))
-
-          if (error) {
+          if (error !== '') {
             break
           }
-        } else {
-          throw `invalid validation rule: ${ruleValue}, please use an existing validation rule name or pass a custom function with same name through 'customRules' prop in Input: ${fieldData.id}. Rule value should be an object with keys: 'rule' as an Regex and 'formatter' as a function, that formats the value.` // eslint-disable-line
-        }
+        } catch (invalidRuleError) {
+          throw invalidRuleError
+        } 
       }
-    }
 
-    return ''
+      this.setState((prevState) => ({
+        ...prevState,
+        errors : {
+          ...prevState.errors,
+          [id] : error
+        }
+      }))
+    }
   }
 
   static defaultProps = {

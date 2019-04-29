@@ -1,7 +1,6 @@
 import React    from 'react'
 import ReactDOM from 'react-dom'
-import { Main }   from '$DEMOS'
-// import { BrowserRouter } from 'react-router-dom'
+import { Main } from '$DEMOS'
 
 ReactDOM.render(
   <Main />,
