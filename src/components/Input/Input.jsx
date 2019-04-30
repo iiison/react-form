@@ -2,13 +2,73 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
 
 export default class Input extends Component {
-  render() {
+  handleInputBlur = ({ evt, field }) => {
     const { id } = this.props
     const {
-      setFieldValue,
+      value,
+      events,
+      shouldValidateField
+    } = field
+    const {
       validateForm,
-      formData
+      setFieldValue
     } = this.context
+    const event = { ...evt }
+
+    evt.persist()
+    if (shouldValidateField) {
+      validateForm(id)
+    } else {
+      setFieldValue({
+        event,
+        field,
+        value : value.toString().length > 0,
+        id    : 'shouldValidateField' 
+      })
+    }
+
+    if (events.onBlur && typeof events.onBlur) {
+      events.onBlur(field)
+    }
+  }
+
+  handleInputChange = ({ evt, field }) => {
+    const event = { ...evt }
+    const { onFieldChange } = field
+    const { setFieldValue } = this.context
+
+    evt.persist()
+    setFieldValue({
+      event,
+      field
+    })
+
+    if (onFieldChange && typeof onFieldChange === 'function') {
+      onFieldChange(event, field, setFieldValue)
+    }
+  }
+
+  selectInputElement = ({ type, props }) => {
+    return type === 'textarea' ? <textarea {...props} /> : <input {...props} />
+  } 
+
+  drawElements = ({ shouldUseDefaultClasses, classes, content, defaultClasses }) => {
+    return content
+      ? <div className={`col-12 ${classes} ${shouldUseDefaultClasses && defaultClasses}`}>{content}</div>
+      : ''
+  }
+
+  getInputClassName = ({ fieldClass, shouldUseDefaultClasses, defaultInputClass }) => (
+    `${fieldClass} ${shouldUseDefaultClasses && defaultInputClass} col-12`
+  )
+
+  selectField = ({ fields, id }) => {
+    return fields ? fields[id] : {}
+  }
+
+  render() {
+    const { id } = this.props
+    const { formData } = this.context
     const {
       fields, 
       defaultClasses,
@@ -25,7 +85,7 @@ export default class Input extends Component {
       errorClass : defaultErrorClass,
       labelClass : defaultLabelClass
     } = defaultClasses
-    const field = fields ? fields[id] : {}
+    const field = this.selectField({ fields, id })
     const {
       value,
       type,
@@ -33,8 +93,6 @@ export default class Input extends Component {
       label,
       events,
       placeholder,
-      onFieldChange,
-      shouldValidateField,
       shouldUseDefaultClasses,
       classes :  {
         contClass,
@@ -45,45 +103,15 @@ export default class Input extends Component {
     } = field
 
     const errors = allErrors && allErrors[id]
-    const updatedContClass = ``
+    // const updatedContClass = ``
     const props = {
       ...events,
       type,
       placeholder,
       value,
-      className : `${fieldClass} ${shouldUseDefaultClasses && defaultInputClass} col-12`,
-      onBlur    : (evt) => {
-        const event = { ...evt }
-
-        evt.persist()
-        if (shouldValidateField) {
-          validateForm(id)
-        } else {
-          setFieldValue({
-            event,
-            field,
-            value : value.toString().length > 0,
-            id    : 'shouldValidateField' 
-          })
-        }
-
-        if (events.onBlur && typeof events.onBlur) {
-          events.onBlur(field)
-        }
-      },
-      onChange : (evt) => {
-        const event = { ...evt }
-
-        evt.persist()
-        setFieldValue({
-          event,
-          field
-        })
-
-        if (onFieldChange && typeof onFieldChange === 'function') {
-          onFieldChange(event, field, setFieldValue)
-        }
-      }
+      className : this.getInputClassName({ fieldClass, shouldUseDefaultClasses, defaultInputClass }),
+      onBlur    : (evt) => this.handleInputBlur({ evt, field }),
+      onChange  : (evt) => this.handleInputChange({ evt, field })
     }
 
     if (type === 'textarea') {
@@ -94,22 +122,26 @@ export default class Input extends Component {
       props.rows = rows || 2
     }
 
-    const element = type === 'textarea'
-      ? <textarea {...props} />
-      : <input {...props} />
+    const element = this.selectInputElement({ type, props })
 
     return (
       <div className={`${contClass}  ${shouldUseDefaultClasses && defaultContClass} input-cont col-12 grid`}>
         {
-          label
-            ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
-            : ''
+          this.drawElements({
+            shouldUseDefaultClasses,
+            classes        : `${labelClass} label`,
+            content        : label,
+            defaultClasses : defaultLabelClass
+          })
         }
         {element}
         {
-          errors
-            ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
-            : ''
+          this.drawElements({
+            shouldUseDefaultClasses,
+            classes        : errorClass,
+            content        : errors,
+            defaultClasses : defaultErrorClass
+          })
         }
       </div>
     )
