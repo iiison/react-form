@@ -2,3 +2,5 @@
 - Create messages list, can be function collection or text json
 - pass validation error info on all events of all inputs
 - put all events in events object
+- Accepts user defined template for form controls
+- Extract context specific items in container

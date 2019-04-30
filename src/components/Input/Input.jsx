@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+import { drawElements } from '$UTILS/componentUtils'
 
 export default class Input extends Component {
   handleInputBlur = ({ evt, field }) => {
@@ -50,12 +51,6 @@ export default class Input extends Component {
 
   selectInputElement = ({ type, props }) => {
     return type === 'textarea' ? <textarea {...props} /> : <input {...props} />
-  } 
-
-  drawElements = ({ shouldUseDefaultClasses, classes, content, defaultClasses }) => {
-    return content
-      ? <div className={`col-12 ${classes} ${shouldUseDefaultClasses && defaultClasses}`}>{content}</div>
-      : ''
   }
 
   getInputClassName = ({ fieldClass, shouldUseDefaultClasses, defaultInputClass }) => (
@@ -127,7 +122,7 @@ export default class Input extends Component {
     return (
       <div className={`${contClass}  ${shouldUseDefaultClasses && defaultContClass} input-cont col-12 grid`}>
         {
-          this.drawElements({
+          drawElements({
             shouldUseDefaultClasses,
             classes        : `${labelClass} label`,
             content        : label,
@@ -136,7 +131,7 @@ export default class Input extends Component {
         }
         {element}
         {
-          this.drawElements({
+          drawElements({
             shouldUseDefaultClasses,
             classes        : errorClass,
             content        : errors,

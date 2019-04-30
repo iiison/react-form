@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+import { drawElements } from '$UTILS/componentUtils'
 
 export default class Option extends Component {
   getChecboxNewValue = ({ event, field, isChecked }) => {
@@ -19,9 +20,9 @@ export default class Option extends Component {
 
   handleInputChange = ({ event }) => {
     const { id } = this.props
-    const { formData : { fields, errors }, setFieldValue, validateForm } = this.context
+    const { formData : { fields }, setFieldValue, validateForm } = this.context
     const field = fields[id]
-    const { options, events, type } = field
+    const { type } = field
     const fieldValue = event.currentTarget.value
     const isChecked = event.currentTarget.checked
     const value = type === 'checkbox'
@@ -51,12 +52,13 @@ export default class Option extends Component {
       const { id, value, displayName } = option
 
       return (
-        <div key={id}>
+        <div key={id} className={optionContClass}>
           <input
             id={id}
             value={value}
             name={fieldID} 
             type={type}
+            className={optionClass}
             defaultChecked={field.value.indexOf(value) !== -1}
             onChange={(evt) => {
               const event = { ...evt }
@@ -65,7 +67,7 @@ export default class Option extends Component {
               this.handleInputChange({ event })
             }}
           />
-          <label htmlFor={id}>{displayName}</label>
+          <label htmlFor={id} className={optionLabelClass}>{displayName}</label>
         </div>
       )
     })
@@ -105,15 +107,21 @@ export default class Option extends Component {
     return (
       <div className={`input-cont ${shouldUseDefaultClasses && defaultContClass} ${contClass}`}>
         {
-          label
-            ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
-            : ''
+          drawElements({
+            shouldUseDefaultClasses,
+            defaultClasses : defaultLabelClass,
+            classes        : `${labelClass} label`,
+            content        : label
+          })
         }
         {(formData.fields && formData.fields[id]) ? this.drawOptions({ optionClass, optionContClass, optionLabelClass }) : ''}
         {
-          errors
-            ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
-            : ''
+          drawElements({
+            shouldUseDefaultClasses,
+            defaultClasses : defaultErrorClass,
+            classes        : errorClass,
+            content        : errors
+          })
         }
       </div>
     )

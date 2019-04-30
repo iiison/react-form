@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+import { drawElements } from '$UTILS/componentUtils'
 
 function getField({ props, context }) {
   const { id } = props
@@ -69,7 +70,7 @@ export default class Select extends Component {
       props   : this.props,
       context : this.context
     })
-    const { id, options, events } = field
+    const { id, events } = field
     const {
       setFieldValue,
       validateForm,
@@ -126,9 +127,12 @@ export default class Select extends Component {
       return (
         <div className={`select-box ${contClass} ${shouldUseDefaultClasses && defaultContClass} grid col-12 input-cont`}>
           {
-            label
-              ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
-              : ''
+            drawElements({
+              shouldUseDefaultClasses,
+              classes        : `${labelClass} label`,
+              content        : label,
+              defaultClasses : defaultLabelClass
+            })
           }
           <div className={`select`}>
             {this.drawSelectedValue()}
@@ -137,9 +141,12 @@ export default class Select extends Component {
             </div>
           </div>
           {
-            errors
-              ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
-              : ''
+            drawElements({
+              shouldUseDefaultClasses,
+              classes        : `${errorClass} error`,
+              content        : errors,
+              defaultClasses : defaultErrorClass
+            })
           }
         </div>
       )
