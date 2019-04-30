@@ -1,14 +1,69 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+import { drawElements } from '$UTILS/componentUtils'
 
 export default class Input extends Component {
-  render() {
+  handleInputBlur = ({ evt, field }) => {
     const { id } = this.props
     const {
-      setFieldValue,
+      value,
+      events,
+      shouldValidateField
+    } = field
+    const {
       validateForm,
-      formData
+      setFieldValue
     } = this.context
+    const event = { ...evt }
+
+    evt.persist()
+    if (shouldValidateField) {
+      validateForm(id)
+    } else {
+      setFieldValue({
+        event,
+        field,
+        value : value.toString().length > 0,
+        id    : 'shouldValidateField' 
+      })
+    }
+
+    if (events.onBlur && typeof events.onBlur) {
+      events.onBlur(field)
+    }
+  }
+
+  handleInputChange = ({ evt, field }) => {
+    const event = { ...evt }
+    const { onFieldChange } = field
+    const { setFieldValue } = this.context
+
+    evt.persist()
+    setFieldValue({
+      event,
+      field
+    })
+
+    if (onFieldChange && typeof onFieldChange === 'function') {
+      onFieldChange(event, field, setFieldValue)
+    }
+  }
+
+  selectInputElement = ({ type, props }) => {
+    return type === 'textarea' ? <textarea {...props} /> : <input {...props} />
+  }
+
+  getInputClassName = ({ fieldClass, shouldUseDefaultClasses, defaultInputClass }) => (
+    `${fieldClass} ${shouldUseDefaultClasses && defaultInputClass} col-12`
+  )
+
+  selectField = ({ fields, id }) => {
+    return fields ? fields[id] : {}
+  }
+
+  render() {
+    const { id } = this.props
+    const { formData } = this.context
     const {
       fields, 
       defaultClasses,
@@ -25,7 +80,7 @@ export default class Input extends Component {
       errorClass : defaultErrorClass,
       labelClass : defaultLabelClass
     } = defaultClasses
-    const field = fields ? fields[id] : {}
+    const field = this.selectField({ fields, id })
     const {
       value,
       type,
@@ -33,8 +88,6 @@ export default class Input extends Component {
       label,
       events,
       placeholder,
-      onFieldChange,
-      shouldValidateField,
       shouldUseDefaultClasses,
       classes :  {
         contClass,
@@ -45,45 +98,15 @@ export default class Input extends Component {
     } = field
 
     const errors = allErrors && allErrors[id]
-    const updatedContClass = ``
+    // const updatedContClass = ``
     const props = {
       ...events,
       type,
       placeholder,
       value,
-      className : `${fieldClass} ${shouldUseDefaultClasses && defaultInputClass} col-12`,
-      onBlur    : (evt) => {
-        const event = { ...evt }
-
-        evt.persist()
-        if (shouldValidateField) {
-          validateForm(id)
-        } else {
-          setFieldValue({
-            event,
-            field,
-            value : value.toString().length > 0,
-            id    : 'shouldValidateField' 
-          })
-        }
-
-        if (events.onBlur && typeof events.onBlur) {
-          events.onBlur(field)
-        }
-      },
-      onChange : (evt) => {
-        const event = { ...evt }
-
-        evt.persist()
-        setFieldValue({
-          event,
-          field
-        })
-
-        if (onFieldChange && typeof onFieldChange === 'function') {
-          onFieldChange(event, field, setFieldValue)
-        }
-      }
+      className : this.getInputClassName({ fieldClass, shouldUseDefaultClasses, defaultInputClass }),
+      onBlur    : (evt) => this.handleInputBlur({ evt, field }),
+      onChange  : (evt) => this.handleInputChange({ evt, field })
     }
 
     if (type === 'textarea') {
@@ -94,22 +117,26 @@ export default class Input extends Component {
       props.rows = rows || 2
     }
 
-    const element = type === 'textarea'
-      ? <textarea {...props} />
-      : <input {...props} />
+    const element = this.selectInputElement({ type, props })
 
     return (
       <div className={`${contClass}  ${shouldUseDefaultClasses && defaultContClass} input-cont col-12 grid`}>
         {
-          label
-            ? <div className={`col-12 ${labelClass} ${shouldUseDefaultClasses && defaultLabelClass} label`}>{label}</div>
-            : ''
+          drawElements({
+            shouldUseDefaultClasses,
+            classes        : `${labelClass} label`,
+            content        : label,
+            defaultClasses : defaultLabelClass
+          })
         }
         {element}
         {
-          errors
-            ? <div className={`col-12 error ${errorClass} ${shouldUseDefaultClasses && defaultErrorClass}`}>{errors}</div>
-            : ''
+          drawElements({
+            shouldUseDefaultClasses,
+            classes        : errorClass,
+            content        : errors,
+            defaultClasses : defaultErrorClass
+          })
         }
       </div>
     )
@@ -118,11 +145,12 @@ export default class Input extends Component {
   componentWillMount() {
     this.context.addField(this.props)
   }
-static contextTypes = {
+
+  static contextTypes = {
     addField      : PropTypes.func.isRequired,
     setFieldValue : PropTypes.func.isRequired,
     validateForm  : PropTypes.func.isRequired,
-    formData      : PropTypes.object.isRequired
+    formData      : PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
   }
 
   static propTypes = {
@@ -134,8 +162,12 @@ static contextTypes = {
     displayName             : PropTypes.string,
     onFieldChange           : PropTypes.func,
     shouldUseDefaultClasses : PropTypes.bool,
+    shouldValidateField     : PropTypes.bool,
     type                    : PropTypes.oneOf(['email', 'text', 'number', 'tel', 'password', 'textarea']),
-    classes                 : PropTypes.shape({
+    events                  : PropTypes.shape({
+      onBlur : PropTypes.func
+    }),
+    classes : PropTypes.shape({
       labelClass : PropTypes.string,
       contClass  : PropTypes.string,
       errorClass : PropTypes.string,
@@ -146,6 +178,8 @@ static contextTypes = {
   static defaultProps = {
     type                    : 'text',
     value                   : '',
+    label                   : '',
+    placeholder             : '',
     events                  : {},
     validate                : '',
     displayName             : '',

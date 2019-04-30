@@ -6,6 +6,7 @@ import Input from './Input'
 
 function renderSuggestions ({ Template, state, suggestionsClasses, clickEvent }) {
   const { currentIndex, suggestions, error, showSuggestions } = state
+  // const notFoundMessage = 'No matching suggestion.'
   let items
 
   if (!showSuggestions) {
@@ -60,7 +61,7 @@ export default class AutoSuggest extends Component {
     showSuggestions : false,
     currentIndex    : 0,
     suggestions     : [],
-    error           : ''
+    error           : '' // eslint-disable-line
   }
 
   setCurrentIndex = (index) => {
@@ -70,7 +71,7 @@ export default class AutoSuggest extends Component {
   }
 
   handleInputBlur = (event) => {
-    const { onBlur } = this.props.events
+    const { events : { onBlur } } = this.props
 
     this.setState({
       showSuggestions : false
@@ -112,7 +113,10 @@ export default class AutoSuggest extends Component {
   }
 
   handleSuggestionClick = (suggestion) => {
-    this.props.onValueSelection(suggestion)
+    const { onValueSelection } = this.props
+
+    onValueSelection(suggestion)
+
     this.setState({
       showSuggestions : false
     })
@@ -161,7 +165,7 @@ export default class AutoSuggest extends Component {
     }
 
     return (
-      <div className={`col-12 grid relative`}>
+      <div className='col-12 grid relative'>
         <Input {...rest} />
         {renderSuggestions({ Template, state, suggestionsClasses, clickEvent })}
       </div>
@@ -183,7 +187,7 @@ export default class AutoSuggest extends Component {
 
   static contextTypes = {
     setFieldValue : PropTypes.func.isRequired,
-    formData      : PropTypes.object.isRequired
+    formData      : PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
   }
 
   static propTypes = {
@@ -193,6 +197,9 @@ export default class AutoSuggest extends Component {
     Template           : PropTypes.func.isRequired,
     minLength          : PropTypes.number,
     delay              : PropTypes.number,
+    events             : PropTypes.shape({
+      onBlur : PropTypes.func
+    }),
     suggestionsClasses : PropTypes.shape({
       contClass : PropTypes.string
     })

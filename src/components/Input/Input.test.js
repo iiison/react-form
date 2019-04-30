@@ -5,7 +5,7 @@ import { mount }           from 'enzyme'
 
 import Input               from './Input'
 import FormContainer       from '../../FormContainer'
-import { wrapWithContext } from '../../utils/utils'
+import { wrapWithContext } from '../../utils/testUtils'
 
 /* eslint-disable react/jsx-filename-extension */
 const defaultContext = {
@@ -13,8 +13,8 @@ const defaultContext = {
   setFieldValue : jest.fn(),
   validateForm  : jest.fn(),
   formData      : {
-    defaultClasses :{
-      contClass : 'default-contClass',
+    defaultClasses : {
+      contClass  : 'default-contClass',
       fieldClass : 'default-fieldClass',
       errorClass : 'default-errorClass',
       labelClass : 'default-labelClass'

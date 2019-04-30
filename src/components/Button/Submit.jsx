@@ -16,21 +16,22 @@ export default class Submit extends Component {
     const { defaultClasses, isFetching, errors } = formData
     const { contClass : defaultContClass } = defaultClasses
     const { buttonClass, contClass } = classes
-    const finishRequest = ({ errors }) => {
+    const finishRequest = ({ apiErrors }) => {
       const newState = {
-        errors,
+        apiErrors,
         isFetching : false
       }
 
       setFormData(newState)
     }
 
+    /* eslint-disable react/jsx-no-literals */
     return (
       <div className={`col-12 grid input-cont ${shouldUseDefaultClasses && defaultContClass} ${contClass}`}>
         <input
           className={`${buttonClass} submit ${isFetching && loadingClass}`}
           {...restEvents}
-          type="submit"
+          type='submit'
           value={`${isFetching ? loadingText || 'loading...' : displayName}`} 
           onClick={(event) => {
             event.preventDefault()
@@ -51,13 +52,19 @@ export default class Submit extends Component {
       </div>
     )
   }
+  /* eslint-enable */
 
   static propTypes = {
     displayName             : PropTypes.string.isRequired,
-    events                  : PropTypes.object,
-    classes                 : PropTypes.object,
     loadingClass            : PropTypes.string,
-    shouldUseDefaultClasses : PropTypes.bool
+    shouldUseDefaultClasses : PropTypes.bool,
+    events                  : PropTypes.shape({
+      onClick : PropTypes.func
+    }),
+    classes : PropTypes.shape({
+      buttonClass : PropTypes.string,
+      contClass   : PropTypes.string
+    })
   }
 
   static defaultProps = {
@@ -71,9 +78,18 @@ export default class Submit extends Component {
   }
 
   static contextTypes = {
-    formData     : PropTypes.object.isRequired,
     validateForm : PropTypes.func.isRequired,
-    setFormData  : PropTypes.func.isRequired
+    setFormData  : PropTypes.func.isRequired,
+    formData     : PropTypes.shape({
+      defaultClasses : PropTypes.shape({
+        labelClass : '',
+        contClass  : '',
+        errorClass : '',
+        fieldClass : ''
+      }),
+      isFetching : PropTypes.bool, 
+      errors : PropTypes.object // eslint-disable-line
+    }),
   }
 }
 
