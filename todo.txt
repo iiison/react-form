@@ -4,3 +4,4 @@
 - put all events in events object
 - Accepts user defined template for form controls
 - Extract context specific items in container
+- Build Error messages form a custom validation rule

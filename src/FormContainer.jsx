@@ -4,6 +4,39 @@ import PropTypes            from 'prop-types' // eslint-disable-line import/no-e
 import validations          from './utils/validationRules'
 
 /**
+ * Select rule from 3 diffrent places(predefined rules, form level rules or input level rules)
+ */
+export function selectRule({ ruleValue, customFormRules, customRules }) {
+  return validations[ruleValue] || customRules[ruleValue] || customFormRules[ruleValue]
+}
+
+/**
+ * Validates if the the selected rule(returned from `selectRule`) is valid or not.
+ * if rule is valid then tests the input field value agains the selected rule.
+ * returns empty string if rule is valid and saticefies the condition.
+ */
+export function validateRule({ id, value, displayName, ruleValue, ruleArgs, validation }) {
+  if (validation) {
+    const stringifiedValue = value.toString()
+    const isRuleSatisfied = ( ruleValue !== 'required' && !stringifiedValue )
+      ? true
+      : validation.rule.apply(null, ruleArgs).test(value.toString())
+    let error = ''
+
+    if (!isRuleSatisfied) {
+      error = validation.formatter.apply(null, [displayName || id, ...ruleArgs])
+
+      return error
+    }
+  } else {
+    throw `invalid validation rule: ${ruleValue}, please use an existing validation rule name or pass a custom function with same name through 'customRules' prop in Input: ${id}. Rule value should be an object with keys: 'rule' as an Regex and 'formatter' as a function, that formats the value.` // eslint-disable-line
+  }
+
+  return ''
+}
+
+
+/**
  * Main Component, a HOC, will store all fields' state.
  */
 export default class FormContainer extends Component {
@@ -131,27 +164,6 @@ export default class FormContainer extends Component {
     )
   }
 
-  validateRule({ id, value, displayName, ruleValue, ruleArgs, validation }) {
-    if (validation) {
-      const stringifiedValue = value.toString()
-      const isRuleSatisfied = ( ruleValue !== 'required' && !stringifiedValue )
-        ? true
-        : validation.rule.apply(null, ruleArgs).test(value.toString())
-      let error = ''
-
-      if (!isRuleSatisfied) {
-        error = validation.formatter.apply(null, [displayName || id, ...ruleArgs])
-
-        return error
-      }
-    } else {
-      throw `invalid validation rule: ${ruleValue}, please use an existing validation rule name or pass a custom function with same name through 'customRules' prop in Input: ${id}. Rule value should be an object with keys: 'rule' as an Regex and 'formatter' as a function, that formats the value.` // eslint-disable-line
-    }
-
-    return ''
-  }
-
-
   validateField = ({
     id,
     value,
@@ -161,17 +173,17 @@ export default class FormContainer extends Component {
   }) => {
     let error = ''
     const rules = validate ? validate.split('|') : ''
+    const { customValidators : customFormRules } = this.props
 
     if (rules.length) {
       for (const rule in rules) {
         const ruleName = rules[rule]
         const ruleDetails = ruleName.split('-')
         const [ruleValue, ...ruleArgs] = ruleDetails
-        const validation = validations[ruleValue] || customRules[ruleValue]
-
+        const validation = selectRule({ ruleValue, customFormRules, customRules })
 
         try {
-          error = this.validateRule({ id, value, displayName, ruleValue, ruleArgs, validation })
+          error = validateRule({ id, value, displayName, ruleValue, ruleArgs, validation })
 
           if (error !== '') {
             break
@@ -196,6 +208,7 @@ export default class FormContainer extends Component {
     children           : <div />,
     isDisabled         : false,
     shouldValidateForm : true,
+    customValidators   : {},
     defaultClasses     : {
       contClass  : '',
       fieldClass : '',
@@ -208,6 +221,7 @@ export default class FormContainer extends Component {
     children           : PropTypes.node,
     isDisabled         : PropTypes.bool,
     shouldValidateForm : PropTypes.bool,
+    customValidators   : PropTypes.object, // eslint-disable-line
     defaultClasses     : PropTypes.shape({
       labelClass : PropTypes.string,
       contClass  : PropTypes.string,
