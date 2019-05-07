@@ -12,7 +12,7 @@
     ]
   ],
   'env': {
-    'test': {
+    'test:watch': {
       'plugins': [
         '@babel/plugin-proposal-export-default-from',
         '@babel/plugin-proposal-export-namespace-from',
@@ -21,13 +21,13 @@
           'module-resolver',
           {
             'alias' : {
-              '$CONFIG'     : './src/config',
               '$SRC'        : './src',
+              '$BUILD'      : './build',
               '$UTILS'      : './src/utils',
+              '$TEST_UTILS' : './__test__/utils',
               '$COMPONENTS' : './src/components',
-              '$CONTAINERS' : './src/containers',
-              '$SHAREDCOMP' : './src/components/Shared',
-              '$TESTUTILS' : './__test__/utils'
+              '$DEMOS'      : './src/components/demos',
+              'react'       : './node_modules/react'
             },
             'root': ['./src'],
           }

@@ -54,6 +54,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot with default 
       className="  col-12"
       onBlur={[Function]}
       onChange={[Function]}
+      placeholder=""
       type="text"
       value=""
     />
@@ -77,7 +78,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot with error in
       value=""
     />
     <div
-      className="col-12 error error-class default-errorClass"
+      className="col-12 error-class default-errorClass"
     >
       some error
     </div>
@@ -93,7 +94,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot with label in
     className="cont-class   input-cont col-12 grid"
   >
     <div
-      className="col-12 label-class  label"
+      className="col-12 label-class label "
     >
       Input label
     </div>
@@ -122,6 +123,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot with predefin
       className="  col-12"
       onBlur={[Function]}
       onChange={[Function]}
+      placeholder=""
       type="text"
       value="test"
     />
@@ -145,7 +147,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot without using
       value=""
     />
     <div
-      className="col-12 error error-class false"
+      className="col-12 error-class false"
     >
       some error
     </div>

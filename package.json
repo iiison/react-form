@@ -10,6 +10,7 @@
     "prepublishOnly": "rm -rf ./build && npm run prod --mode production",
     "test": "jest",
     "test:watch": "jest --watch --verbose false",
+    "test:watchAll": "jest --watchAll --verbose false",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand --watch --verbose false",
     "eslint:debug": "node --inspect-brk node_modules/.bin/webpack --runInBand --watch --verbose true --debug-brk"
   },
@@ -52,7 +53,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.0-beta.6",
     "babel-minify-webpack-plugin": "^0.3.1",
-    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "chalk": "^2.4.1",
     "enzyme": "^3.8.0",
@@ -78,44 +79,5 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-load-plugins": "^0.1.2"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/__tests__/setup/setupTests.js",
-    "testPathIgnorePatterns": [
-      "<rootDir>/__tests__"
-    ],
-    "moduleNameMapper": {
-      "^.*[.](css|CSS)$": "<rootDir>/__tests__/setup/styleMock.js",
-      "$TESTUTILS(.*)$": "<rootDir>/__tests__/utils"
-    },
-    "transform": {
-      "^.+\\.jsx$": "babel-jest",
-      "^.+\\.js$": "babel-jest"
-    },
-    "globals": {
-      "env": {
-        "isProd": false,
-        "isDev": true,
-        "command": "start"
-      }
-    },
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "css"
-    ],
-    "modulePaths": [
-      "/src"
-    ],
-    "moduleDirectories": [
-      "src",
-      "node_modules"
-    ],
-    "setupFiles": [
-      "./__tests__/setup/setupJest.js"
-    ],
-    "verbose": true,
-    "automock": false
   }
 }
