@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes            from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+import PropTypes            from 'prop-types'
 
 import validations          from './utils/validationRules'
 
@@ -137,6 +137,7 @@ export default class FormContainer extends Component {
       const isRuleSatisfied = ( ruleValue !== 'required' && !stringifiedValue )
         ? true
         : validation.rule.apply(null, ruleArgs).test(value.toString())
+
       let error = ''
 
       if (!isRuleSatisfied) {

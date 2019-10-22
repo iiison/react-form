@@ -54,7 +54,7 @@ export default class Input extends Component {
   }
 
   getInputClassName = ({ fieldClass, shouldUseDefaultClasses, defaultInputClass }) => (
-    `${fieldClass} ${shouldUseDefaultClasses && defaultInputClass} col-12`
+    `${fieldClass} ${shouldUseDefaultClasses ? defaultInputClass : ''} col-12`
   )
 
   selectField = ({ fields, id }) => {
@@ -120,7 +120,9 @@ export default class Input extends Component {
     const element = this.selectInputElement({ type, props })
 
     return (
-      <div className={`${contClass}  ${shouldUseDefaultClasses && defaultContClass} input-cont col-12 grid`}>
+      <div
+        className={`${contClass} ${shouldUseDefaultClasses ? defaultContClass : ''} input-cont col-12 grid`}
+      >
         {
           drawElements({
             shouldUseDefaultClasses,

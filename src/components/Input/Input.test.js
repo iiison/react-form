@@ -58,7 +58,6 @@ describe('>>> Input Container -- Snapshot Test', () => {
       </FormContainer>
     ).toJSON()
 
-
     expect(tree).toMatchSnapshot()
   })
 
@@ -74,7 +73,6 @@ describe('>>> Input Container -- Snapshot Test', () => {
 
   it('Matches the snapshot with label in input', () => {
     const customProps = { ...defaultInputArgs }
-    const customFormProps = { ...defaultContext.formData }
 
     customProps.label = 'Input label'
     customProps.placeholder = 'custom placeholder'
@@ -91,7 +89,6 @@ describe('>>> Input Container -- Snapshot Test', () => {
 
   it('Matches the snapshot with custom props', () => {
     const customProps = { ...defaultInputArgs }
-    const customFormProps = { ...defaultContext.formData }
 
     customProps.placeholder = 'custom placeholder'
     customProps.displayName = 'custom display name'
@@ -107,7 +104,6 @@ describe('>>> Input Container -- Snapshot Test', () => {
 
   it('Matches the snapshot when Textarea is rendered', () => {
     const customProps = { ...defaultInputArgs }
-    const customFormProps = { ...defaultContext.formData }
 
     customProps.type = 'textarea'
     customProps.rows = 5
@@ -129,7 +125,7 @@ describe('>>> Input Container -- Snapshot Test', () => {
     const props = {
       ...defaultInputArgs,
       onFieldChange : jest.fn(),
-      validate : 'email'
+      validate      : 'email'
     }
 
     customContext.formData.fields.email = props
@@ -140,7 +136,7 @@ describe('>>> Input Container -- Snapshot Test', () => {
     const WrappedWithContextComponent = wrapWithContext(customContext, contextTypes)
     const tree = renderer.create(
       <WrappedWithContextComponent>
-        <Input { ...props } />
+        <Input {...props} />
       </WrappedWithContextComponent>
     ).toJSON()
 
@@ -164,7 +160,7 @@ describe('>>> Input Container -- Snapshot Test', () => {
     const WrappedWithContextComponent = wrapWithContext(customContext, contextTypes)
     const tree = renderer.create(
       <WrappedWithContextComponent>
-        <Input { ...props } />
+        <Input {...props} />
       </WrappedWithContextComponent>
     ).toJSON()
 
