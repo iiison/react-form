@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import renderer      from 'react-test-renderer'
-import { mount }     from 'enzyme'
-import PropTypes     from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+import { mount, shallow }     from 'enzyme'
+import PropTypes     from 'prop-types'
 
 import FormContainer from './FormContainer'
+import { Input }     from './components'
 
 /* eslint-disable react/jsx-filename-extension */
 class SmallComponent extends Component {
@@ -58,6 +59,7 @@ describe('>>> Form Container -- Shallow Rendering', () => {
       <input type='text' />
     </div>
   )
+
   let mountedScreen
   const formScreen = (customState = {}, content) => {
     if (!mountedScreen) {
@@ -87,13 +89,116 @@ describe('>>> Form Container -- Shallow Rendering', () => {
     expect(result).toEqual(expected)
   })
 
-  it('Renders Form Component With valid elements in it', () => {
-    const tree = formScreen({}, <SmallComponent />)
+  it('Renders Form Component With valid elements in it and Checks State', () => {
+    const inputProps = {
+      id            : 'test',
+      value         : 'some value',
+      onFieldChange : jest.fn()
+    }
+    const tree = formScreen(
+      {}, 
+      <Input {...inputProps} />
+    )
 
-    // TODO: Need to test context variables, still figuringout a way to access them here.
+    const formInput = tree.find('Input')
+    const expectedInputsCount = formInput.length
+    const { fields } = tree.state()
+    const { id, value, type, onFieldChange } = fields.test
+
+    expect(expectedInputsCount).toBe(1)
+    expect(Object.keys(fields)).toEqual(['test'])
+
+    expect(id).toBe('test')
+    expect(type).toBe('text')
+    expect(value).toBe('some value')
+
+    const input = formInput.find('input').at(0)
+    
+    input.simulate('change', {
+      traget : {
+        value : 'test'
+      }
+    })
+
+    expect(onFieldChange).toHaveBeenCalled()
   })
 
-  // TODO: State Test when function called
+  it('Triggers Form Input validation', () => {
+    const inputProps = {
+      id                  : 'validationTest',
+      value               : 'invalid value',
+      validate            : 'email',
+      shouldValidateField : true
+    }
+    const tree = formScreen(
+      {}, 
+      <Input {...inputProps} />
+    )
+
+    const formInput = tree.find('input').at(0)
+
+    formInput.prop('onChange')({
+      currentTarget : {
+        value : 'Value Changed'
+      },
+      persist : jest.fn()
+    })
+
+    tree.update()
+
+    const state = tree.state()
+    const { fields } = tree.state()
+
+    expect(fields.validationTest.value).toEqual('Value Changed')
+
+    formInput.props().onBlur({
+      persist : jest.fn()
+    })
+    tree.update()
+
+    const { errors } = tree.state()
+
+    expect(errors.validationTest).not.toEqual('')
+    expect(errors.validationTest).toEqual('validationTest is not valid email')
+  })
+
+  it('Uses custom validation rule to validate input', () => {
+    const inputProps = {
+      id                  : 'validationTest',
+      value               : 'invalid value',
+      validate            : 'customRule',
+      shouldValidateField : true,
+      customRules         : {
+        customRule : {
+          rule      : () => /\b123456\b/,
+          formatter : (fieldName) => `${fieldName} is not valid.`
+        }
+      }
+    }
+    const tree = formScreen(
+      {}, 
+      <Input {...inputProps} />
+    )
+
+    const formInput = tree.find('input').at(0)
+
+    formInput.prop('onChange')({
+      currentTarget : {
+        value : 'Value Changed'
+      },
+      persist : jest.fn()
+    })
+    formInput.props().onBlur({
+      persist : jest.fn()
+    })
+
+    tree.update()
+
+    const { errors } = tree.state()
+
+    expect(errors.validationTest).not.toEqual('')
+    expect(errors.validationTest).toEqual('validationTest is not valid.')
+  })
 })
 // *************************************************************
 

@@ -83,6 +83,7 @@ export default class Input extends Component {
     const field = this.selectField({ fields, id })
     const {
       value,
+      name,
       type,
       rows,
       label,
@@ -101,6 +102,7 @@ export default class Input extends Component {
     // const updatedContClass = ``
     const props = {
       ...events,
+      name,
       type,
       placeholder,
       value,
@@ -157,6 +159,7 @@ export default class Input extends Component {
 
   static propTypes = {
     id                      : PropTypes.string.isRequired,
+    name                    : PropTypes.string,
     value                   : PropTypes.string,
     label                   : PropTypes.string,
     validate                : PropTypes.string,
@@ -179,6 +182,7 @@ export default class Input extends Component {
 
   static defaultProps = {
     type                    : 'text',
+    name                    : '',
     value                   : '',
     label                   : '',
     placeholder             : '',
@@ -186,7 +190,7 @@ export default class Input extends Component {
     validate                : '',
     displayName             : '',
     onFieldChange           : null,
-    shouldValidateField     : false,
+    shouldValidateField     : false, // should be conditional on basis of `validate` prop
     shouldUseDefaultClasses : true,
     classes                 : {
       labelClass : '',

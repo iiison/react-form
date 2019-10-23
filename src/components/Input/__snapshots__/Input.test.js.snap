@@ -11,6 +11,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot when Textarea
     <textarea
       className="field-class  col-12"
       defaultValue="big textarea value"
+      name=""
       onBlur={[Function]}
       onChange={[Function]}
       placeholder="custom textarea placeholder"
@@ -31,6 +32,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot with custom p
     
     <input
       className="field-class  col-12"
+      name=""
       onBlur={[Function]}
       onChange={[Function]}
       placeholder="custom placeholder"
@@ -52,6 +54,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot with default 
     
     <input
       className="  col-12"
+      name=""
       onBlur={[Function]}
       onChange={[Function]}
       placeholder=""
@@ -100,6 +103,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot with label in
     </div>
     <input
       className="field-class  col-12"
+      name=""
       onBlur={[Function]}
       onChange={[Function]}
       placeholder="custom placeholder"
@@ -121,6 +125,7 @@ exports[`>>> Input Container -- Snapshot Test Matches the snapshot with predefin
     
     <input
       className="  col-12"
+      name=""
       onBlur={[Function]}
       onChange={[Function]}
       placeholder=""

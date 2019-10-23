@@ -9,8 +9,8 @@
     "local": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline --mode development",
     "prepublishOnly": "rm -rf ./build && npm run prod --mode production",
     "test": "jest",
-    "test:watch": "jest --watch --verbose false",
-    "test:debug": "node --inspect node_modules/.bin/jest --runInBand --watch --verbose false",
+    "test:watch": "jest --watch --verbose true",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --verbose true",
     "eslint:debug": "node --inspect-brk node_modules/.bin/webpack --runInBand --watch --verbose true --debug-brk"
   },
   "repository": {
@@ -56,7 +56,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "chalk": "^2.4.1",
     "enzyme": "^3.8.0",
-    "enzyme-adapter-react-15": "^1.2.0",
+    "enzyme-adapter-react-15": "^1.4.1",
     "enzyme-to-json": "^3.3.5",
     "eslint": "^5.12.1",
     "eslint-config-airbnb": "^17.1.0",
