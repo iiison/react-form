@@ -198,7 +198,11 @@ describe('>>> Input Container -- Shallow Rendering', () => {
   })
 
   it('Triggers input change function when input changed', () => {
-    const props = { onFieldChange : jest.fn() }
+    const props = {
+      events : {
+        onChange : jest.fn()
+      }
+    }
     const tree = inputScreen(props)
 
     const input = tree
@@ -211,7 +215,7 @@ describe('>>> Input Container -- Shallow Rendering', () => {
       }
     })
 
-    expect(props.onFieldChange).toHaveBeenCalled()
+    expect(props.events.onChange).toHaveBeenCalled()
   })
 })
 // *************************************************************

@@ -91,9 +91,11 @@ describe('>>> Form Container -- Shallow Rendering', () => {
 
   it('Renders Form Component With valid elements in it and Checks State', () => {
     const inputProps = {
-      id            : 'test',
-      value         : 'some value',
-      onFieldChange : jest.fn()
+      id     : 'test',
+      value  : 'some value',
+      events : {
+        onChange : jest.fn()
+      }
     }
     const tree = formScreen(
       {}, 
@@ -103,7 +105,7 @@ describe('>>> Form Container -- Shallow Rendering', () => {
     const formInput = tree.find('Input')
     const expectedInputsCount = formInput.length
     const { fields } = tree.state()
-    const { id, value, type, onFieldChange } = fields.test
+    const { id, value, type, events : { onChange : onFieldChange } } = fields.test
 
     expect(expectedInputsCount).toBe(1)
     expect(Object.keys(fields)).toEqual(['test'])

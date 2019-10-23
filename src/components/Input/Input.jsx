@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types' // eslint-disable-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types'
 import { drawElements } from '$UTILS/componentUtils'
 
 export default class Input extends Component {
@@ -35,7 +35,7 @@ export default class Input extends Component {
 
   handleInputChange = ({ evt, field }) => {
     const event = { ...evt }
-    const { onFieldChange } = field
+    const { onChange : onFieldChange } = field.events
     const { setFieldValue } = this.context
 
     evt.persist()
@@ -165,12 +165,12 @@ export default class Input extends Component {
     validate                : PropTypes.string,
     placeholder             : PropTypes.string,
     displayName             : PropTypes.string,
-    onFieldChange           : PropTypes.func,
     shouldUseDefaultClasses : PropTypes.bool,
     shouldValidateField     : PropTypes.bool,
     type                    : PropTypes.oneOf(['email', 'text', 'number', 'tel', 'password', 'textarea']),
     events                  : PropTypes.shape({
-      onBlur : PropTypes.func
+      onBlur   : PropTypes.func,
+      onChange : PropTypes.func
     }),
     classes : PropTypes.shape({
       labelClass : PropTypes.string,
@@ -186,12 +186,14 @@ export default class Input extends Component {
     value                   : '',
     label                   : '',
     placeholder             : '',
-    events                  : {},
     validate                : '',
     displayName             : '',
-    onFieldChange           : null,
-    shouldValidateField     : false, // should be conditional on basis of `validate` prop
+    shouldValidateField     : false, // should be conditional on basis of "validate" prop
     shouldUseDefaultClasses : true,
+    events                  : {
+      onChange : null,
+      onBlur   : null
+    },
     classes                 : {
       labelClass : '',
       contClass  : '',
