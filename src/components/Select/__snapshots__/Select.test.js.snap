@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Select Container -- Snapshot Test Matches the snapshot with default props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="select-box cont-class  grid col-12 input-cont"
+  >
+    
+    <div
+      className="select"
+    >
+      <div
+        className="col-12 field-value undefined select-value"
+      >
+        Select Value
+      </div>
+      <div
+        className="grid options undefined"
+      >
+        <div
+          className="undefined option default"
+          onClick={[Function]}
+          role="button"
+        >
+          Select Value
+        </div>
+        <div
+          className="undefined option false "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit Apple
+        </div>
+        <div
+          className="undefined option false "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit orange
+        </div>
+        <div
+          className="undefined option false "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit Pineapple
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</form>
+`;

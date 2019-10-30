@@ -165,6 +165,7 @@ export default class Select extends Component {
     events                  : {},
     validate                : '',
     placeholder             : 'Select',
+    displayName             : '',
     shouldValidateField     : true,
     shouldUseDefaultClasses : true,
     classes                 : {
@@ -185,7 +186,7 @@ export default class Select extends Component {
     shouldValidateField     : PropTypes.bool,
     shouldUseDefaultClasses : PropTypes.bool,
     placeholder             : PropTypes.string,
-    displayName             : PropTypes.string.isRequired,
+    displayName             : PropTypes.string,
     options                 : PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
     classes                 : PropTypes.shape({
       contClass           : PropTypes.string,

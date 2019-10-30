@@ -49,7 +49,7 @@ const defaultInputArgs = {
   },
 }
 
-// Snapshot matching for Login Container
+// Snapshot matching for Input Coponent
 describe('>>> Input Container -- Snapshot Test', () => {
   it('Matches the snapshot with default props', () => {
     const tree = renderer.create(

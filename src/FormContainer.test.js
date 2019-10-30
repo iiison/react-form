@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import renderer      from 'react-test-renderer'
-import { mount, shallow }     from 'enzyme'
+import { mount }     from 'enzyme'
 import PropTypes     from 'prop-types'
 
 import FormContainer from './FormContainer'
@@ -54,12 +54,6 @@ describe('>>> Form Container -- Snapshot Test', () => {
 
 // Check DOM Behaviour
 describe('>>> Form Container -- Shallow Rendering', () => {
-  const formContent = (
-    <div>
-      <input type='text' />
-    </div>
-  )
-
   let mountedScreen
   const formScreen = (customState = {}, content) => {
     if (!mountedScreen) {
@@ -148,7 +142,6 @@ describe('>>> Form Container -- Shallow Rendering', () => {
 
     tree.update()
 
-    const state = tree.state()
     const { fields } = tree.state()
 
     expect(fields.validationTest.value).toEqual('Value Changed')
