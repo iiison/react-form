@@ -1,5 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`>>> Select Container -- Snapshot Test Matches the snapshot with custom props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="select-box select-cont  grid col-12 input-cont"
+  >
+    <div
+      className="col-12 select-label label "
+    >
+      Select Fruits
+    </div>
+    <div
+      className="select"
+    >
+      <div
+        className="col-12 field-value undefined select-value"
+      >
+        Fruit Pineapple
+      </div>
+      <div
+        className="grid options undefined"
+      >
+        <div
+          className="select-option option default"
+          onClick={[Function]}
+          role="button"
+        >
+          Select One...
+        </div>
+        <div
+          className="select-option option false "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit Apple
+        </div>
+        <div
+          className="select-option option false "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit orange
+        </div>
+        <div
+          className="select-option option selected-value "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit Pineapple
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</form>
+`;
+
 exports[`>>> Select Container -- Snapshot Test Matches the snapshot with default props 1`] = `
 <form
   action=""
@@ -52,4 +110,60 @@ exports[`>>> Select Container -- Snapshot Test Matches the snapshot with default
     
   </div>
 </form>
+`;
+
+exports[`>>> Select Container -- Snapshot Test Matches the snapshot with error in select box 1`] = `
+<div>
+  <div
+    className="select-box cont-class default-contClass grid col-12 input-cont"
+  >
+    
+    <div
+      className="select"
+    >
+      <div
+        className="col-12 field-value undefined select-value"
+      >
+        Select Value
+      </div>
+      <div
+        className="grid options undefined"
+      >
+        <div
+          className="undefined option default"
+          onClick={[Function]}
+          role="button"
+        >
+          Select Value
+        </div>
+        <div
+          className="undefined option false "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit Apple
+        </div>
+        <div
+          className="undefined option false "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit orange
+        </div>
+        <div
+          className="undefined option false "
+          onClick={[Function]}
+          role="button"
+        >
+          Fruit Pineapple
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 error-class error default-errorClass"
+    >
+      some error
+    </div>
+  </div>
+</div>
 `;
