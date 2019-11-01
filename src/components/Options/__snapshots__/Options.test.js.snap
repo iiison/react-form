@@ -1,0 +1,379 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>> Options Container -- Snapshot Test Matches the snapshot for checkbox with custom props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="input-cont  options-cont"
+  >
+    <div
+      className="col-12 options-label label "
+    >
+      Options Fruits
+    </div>
+    <div>
+      <input
+        className="option-unit"
+        defaultChecked={false}
+        id="apple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="apple"
+      />
+      <label
+        htmlFor="apple"
+      >
+        Fruit Apple
+      </label>
+    </div>
+    <div>
+      <input
+        className="option-unit"
+        defaultChecked={true}
+        id="orange"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="orange"
+      />
+      <label
+        htmlFor="orange"
+      >
+        Fruit orange
+      </label>
+    </div>
+    <div>
+      <input
+        className="option-unit"
+        defaultChecked={true}
+        id="pineapple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="pineapple"
+      />
+      <label
+        htmlFor="pineapple"
+      >
+        Fruit Pineapple
+      </label>
+    </div>
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Options Container -- Snapshot Test Matches the snapshot for checkbox with default props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="input-cont  "
+  >
+    
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="apple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="apple"
+      />
+      <label
+        htmlFor="apple"
+      >
+        Fruit Apple
+      </label>
+    </div>
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="orange"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="orange"
+      />
+      <label
+        htmlFor="orange"
+      >
+        Fruit orange
+      </label>
+    </div>
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="pineapple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="pineapple"
+      />
+      <label
+        htmlFor="pineapple"
+      >
+        Fruit Pineapple
+      </label>
+    </div>
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Options Container -- Snapshot Test Matches the snapshot for radio button with custom props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="input-cont  options-cont"
+  >
+    <div
+      className="col-12 options-label label "
+    >
+      Options Fruits
+    </div>
+    <div>
+      <input
+        className="option-unit"
+        defaultChecked={false}
+        id="apple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="apple"
+      />
+      <label
+        htmlFor="apple"
+      >
+        Fruit Apple
+      </label>
+    </div>
+    <div>
+      <input
+        className="option-unit"
+        defaultChecked={false}
+        id="orange"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="orange"
+      />
+      <label
+        htmlFor="orange"
+      >
+        Fruit orange
+      </label>
+    </div>
+    <div>
+      <input
+        className="option-unit"
+        defaultChecked={true}
+        id="pineapple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="pineapple"
+      />
+      <label
+        htmlFor="pineapple"
+      >
+        Fruit Pineapple
+      </label>
+    </div>
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Options Container -- Snapshot Test Matches the snapshot for radio button with default props 1`] = `
+<form
+  action=""
+>
+  <div
+    className="input-cont  "
+  >
+    
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="apple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="apple"
+      />
+      <label
+        htmlFor="apple"
+      >
+        Fruit Apple
+      </label>
+    </div>
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="orange"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="orange"
+      />
+      <label
+        htmlFor="orange"
+      >
+        Fruit orange
+      </label>
+    </div>
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="pineapple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="pineapple"
+      />
+      <label
+        htmlFor="pineapple"
+      >
+        Fruit Pineapple
+      </label>
+    </div>
+    
+  </div>
+</form>
+`;
+
+exports[`>>> Options Container -- Snapshot Test Matches the snapshot with error in checkbox 1`] = `
+<div>
+  <div
+    className="input-cont default-contClass "
+  >
+    
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="apple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="apple"
+      />
+      <label
+        htmlFor="apple"
+      >
+        Fruit Apple
+      </label>
+    </div>
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="orange"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="orange"
+      />
+      <label
+        htmlFor="orange"
+      >
+        Fruit orange
+      </label>
+    </div>
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="pineapple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="checkbox"
+        value="pineapple"
+      />
+      <label
+        htmlFor="pineapple"
+      >
+        Fruit Pineapple
+      </label>
+    </div>
+    <div
+      className="col-12  default-errorClass"
+    >
+      some error
+    </div>
+  </div>
+</div>
+`;
+
+exports[`>>> Options Container -- Snapshot Test Matches the snapshot with error in radio button 1`] = `
+<div>
+  <div
+    className="input-cont default-contClass "
+  >
+    
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="apple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="apple"
+      />
+      <label
+        htmlFor="apple"
+      >
+        Fruit Apple
+      </label>
+    </div>
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="orange"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="orange"
+      />
+      <label
+        htmlFor="orange"
+      >
+        Fruit orange
+      </label>
+    </div>
+    <div>
+      <input
+        className=""
+        defaultChecked={false}
+        id="pineapple"
+        name="optionsBox"
+        onChange={[Function]}
+        type="radio"
+        value="pineapple"
+      />
+      <label
+        htmlFor="pineapple"
+      >
+        Fruit Pineapple
+      </label>
+    </div>
+    <div
+      className="col-12  default-errorClass"
+    >
+      some error
+    </div>
+  </div>
+</div>
+`;

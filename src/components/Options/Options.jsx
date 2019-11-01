@@ -48,6 +48,7 @@ export default class Option extends Component {
     const { options, id : fieldID, type } = this.props
     const { formData : { fields } } = this.context
     const field = fields[fieldID]
+    const fieldValueAsList = Array.isArray(field.value) ? field.value : [field.value]
     const renderedOptions = options.map((option) => {
       const { id, value, displayName } = option
 
@@ -59,7 +60,7 @@ export default class Option extends Component {
             name={fieldID} 
             type={type}
             className={optionClass}
-            defaultChecked={field.value.indexOf(value) !== -1}
+            defaultChecked={fieldValueAsList.includes(value)}
             onChange={(evt) => {
               const event = { ...evt }
 
@@ -132,6 +133,7 @@ export default class Option extends Component {
   }
 
   static defaultProps = {
+    displayName             : '',
     label                   : '',
     events                  : {},
     validate                : '',
@@ -153,7 +155,7 @@ export default class Option extends Component {
     validate                : PropTypes.string,
     shouldValidateField     : PropTypes.bool,
     shouldUseDefaultClasses : PropTypes.bool,
-    displayName             : PropTypes.string.isRequired,
+    displayName             : PropTypes.string,
     options                 : PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
     type                    : PropTypes.oneOf(['checkbox', 'radio']).isRequired,
     events                  : PropTypes.shape({
