@@ -129,7 +129,7 @@ __`id` mandatory fields in the `this.props` in custom components.__
 ###### formData[Object]
 `formData` is single source of truth for the field values and other field related data. `formData` consists all form data, such as field values, other field props, errors, fields events, etc. Here is the shape of `formData` object:
 
-```json
+```js
 {
   shouldValidateForm : Boolean,
   defaultClasses     : Object,
