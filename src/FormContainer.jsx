@@ -65,6 +65,10 @@ export default class FormContainer extends Component {
       },
 
       addField : (data) => {
+        if (!data.id) {
+          throw `please add "id" property to field: ${data}`
+        }
+
         this.setState((prevState) => ({
           ...prevState,
           errors : {
