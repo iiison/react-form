@@ -17,6 +17,12 @@ function getOptionValue(options, filterPropName, value) {
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 export default class Select extends Component {
+  constructor(props, context) {
+    super(props)
+
+    context.addField({ ...props })
+  }
+
   drawSelectedValue = () => {
     const field = getField({
       props   : this.props,
@@ -155,9 +161,8 @@ export default class Select extends Component {
     return (<div />)
   }
 
-  componentDidMount() {
-    this.context.addField(this.props)
-  }
+  // componentDidMount() {
+  // }
 
   static defaultProps = {
     value                   : '',
