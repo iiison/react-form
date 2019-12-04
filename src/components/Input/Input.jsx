@@ -188,7 +188,7 @@ export default class Input extends Component {
     placeholder             : '',
     validate                : '',
     displayName             : '',
-    shouldValidateField     : false, // should be conditional on basis of "validate" prop
+    shouldValidateField     : false,
     shouldUseDefaultClasses : true,
     events                  : {
       onChange : null,

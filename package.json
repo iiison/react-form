@@ -7,7 +7,7 @@
     "prod": "webpack -p",
     "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline --mode development",
     "local": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline --mode development",
-    "prepublishOnly": "rm -rf ./build && npm run prod --mode production",
+    "prepublishOnly": "rm -rf ./build && npm run prod",
     "test": "jest",
     "test:watch": "jest --watch --verbose true",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --verbose true",
