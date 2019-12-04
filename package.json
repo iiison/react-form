@@ -2,7 +2,8 @@
   "name": "react-state-form",
   "version": "2.0.0",
   "description": "",
-  "main": "./index.js",
+  "main": "build/react-state-form.js",
+  "module" : "build/react-state-form.js",
   "scripts": {
     "prod": "webpack -p",
     "start": "webpack-dev-server --config webpack.config.babel.js --color --progress --hot --inline --mode development",
@@ -38,6 +39,7 @@
     "babel-jest": "^23.6.0",
     "jest": "^23.6.0"
   },
+  "files" : ["build"],
   "homepage": "https://github.com/iiison/react-form#readme",
   "devDependencies": {
     "@babel/cli": "^7.1.5",
