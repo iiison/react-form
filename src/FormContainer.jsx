@@ -66,7 +66,7 @@ export default class FormContainer extends Component {
 
       addField : (data) => {
         if (!data.id) {
-          throw `please add "id" property to field: ${data}`
+          throw `please add "id" property to field: ${JSON.stringify(data)}`
         }
 
         this.setState((prevState) => ({
