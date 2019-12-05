@@ -1,6 +1,6 @@
 {
   "name": "react-state-form",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "build/react-state-form.js",
   "module": "build/react-state-form.js",
