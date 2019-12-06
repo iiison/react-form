@@ -43,7 +43,7 @@ Refer to each [component wiki](https://github.com/iiison/react-form/wiki) for pr
 
 #### Form Props
 ###### defaultClasses[Object]
-Suppose you want class `input-container` on all the input fields. There are two ways to do that, either pass the class name as a prop to each input(which will be very repetitive) or define `fieldClass` property in `defaultClasses` prop in Form. This adds default classes to each input field. You can opt not to add default classes at the component level(checkout components doc for more details). Here is the default value of `defaultClasses` prop:
+Suppose you want class `input-container` on all the input fields. There are two ways to do that, either pass the class name as a prop to each input(which will be very repetitive) or define `fieldClass` property in `defaultClasses` prop in Form. This adds default classes to each input field. You can opt not to add default classes at the component level(checkout [components wiki](https://github.com/iiison/react-form/wiki) for more details). Here is the default value of `defaultClasses` prop:
 
 ```js
 const defaultClasses = {
