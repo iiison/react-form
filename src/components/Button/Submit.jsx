@@ -32,7 +32,7 @@ export default class Submit extends Component {
           className={`${buttonClass} submit ${isFetching && loadingClass}`}
           {...restEvents}
           type='submit'
-          value={`${isFetching ? loadingText || 'loading...' : displayName}`} 
+          value={`${isFetching ? loadingText : displayName}`} 
           onClick={(event) => {
             event.preventDefault()
 
@@ -56,6 +56,7 @@ export default class Submit extends Component {
 
   static propTypes = {
     displayName             : PropTypes.string.isRequired,
+    loadingText             : PropTypes.string,
     loadingClass            : PropTypes.string,
     shouldUseDefaultClasses : PropTypes.bool,
     events                  : PropTypes.shape({
@@ -73,6 +74,7 @@ export default class Submit extends Component {
       buttonClass : '',
       contClass   : ''
     },
+    loadingText             : 'Loading...',
     loadingClass            : '',
     shouldUseDefaultClasses : true
   }
