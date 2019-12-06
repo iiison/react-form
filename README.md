@@ -39,7 +39,7 @@ Just replace the HTML form tag with `Form` like:
   </div>
 </Form>
 ```
-Refer to each component doc in the wiki for prop details.
+Refer to each [component wiki](https://github.com/iiison/react-form/wiki) for prop details.
 
 #### Form Props
 ###### defaultClasses[Object]
