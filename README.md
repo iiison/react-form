@@ -47,10 +47,10 @@ Suppose you want class `input-container` on all the input fields. There are two 
 
 ```js
 const defaultClasses = {
-  label      : 'input-label'      // will be added to all labels.
+  label      : 'input-label',     // will be added to all labels.
   contClass  : 'input-container', // Container class, will be added to each container.
   fieldClass : 'input-field',     // will be added to actual field.
-  errorClass : 'error',           // will be added to errors.
+  errorClass : 'error'            // will be added to errors.
 }
 ```
 
